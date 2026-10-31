@@ -3,7 +3,8 @@
 <desc id="description">Click the animated terminal above, or click this button, to open the interactive portfolio</desc>
 <rect x="0.75" y="0.75" width="294.5" height="60.5" rx="6" fill="#0c1117" stroke="#394550" stroke-width="1.5"/>
 <path d="M8 14v34" stroke="#72df91" stroke-width="3" stroke-linecap="round"/>
-<text x="22" y="27" font-family="DejaVu Sans Mono,Liberation Mono,monospace" font-size="14" font-weight="600" fill="#e5eaf0">↑ Click terminal above</text>
+<text x="22" y="27" font-family="DejaVu Sans Mono,Liberation Mono,monospace" font-size="14" font-weight="600" fill="#e5eaf0">Click terminal above</text>
 <text x="22" y="45" font-family="DejaVu Sans Mono,Liberation Mono,monospace" font-size="10" fill="#a5b2bf">OR CLICK HERE TO OPEN</text>
-<path d="M259 31h20m-8-8 8 8-8 8" stroke="#72df91" stroke-width="2.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="terminal-up-arrow" d="M269 42V17m-9 9 9-9 9 9" stroke="#72df91" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="button-open-arrow" d="M157 42h14m-5-5 5 5-5 5" stroke="#72df91" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
