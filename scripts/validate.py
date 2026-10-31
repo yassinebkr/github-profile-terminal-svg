@@ -13,7 +13,8 @@ for p in svg_files:
     src = p.read_text(encoding="utf-8")
     ET.fromstring(src)
     assert "<script" not in src and "<foreignObject" not in src, p
-    assert "http://" not in src and "https://" not in src, p
+    # The SVG namespace URI is required; external resources are not.
+    assert not re.search(r'(?:href|src)=["\']https?://', src), p
 for relative in re.findall(r'src="([^"]+)"', readme):
     assert (ROOT / relative).is_file(), f"Missing image: {relative}"
 assert readme.count("<details>") == readme.count("</details>")
