@@ -1,169 +1,52 @@
+<div align="center">
 
-# ENGINEERING OS
+<img src="./assets/terminal.svg" width="100%" alt="Animated Debian XFCE shell with engineering neofetch" />
 
-<p align="center">
-  <strong>Electronics · Embedded Systems · Software · Fabrication</strong>
-</p>
+</div>
 
-<p align="center">
-  <a href="#hardware">[ HARDWARE ]</a> •
-  <a href="#embedded">[ EMBEDDED ]</a> •
-  <a href="#software">[ SOFTWARE ]</a> •
-  <a href="#projects">[ PROJECTS ]</a>
-</p>
-
----
-
-<details open>
-<summary><code>visitor@github:~$ ls -la /workspace</code></summary>
-
-| Directory | Description | Open |
-|---|---|---|
-| `/hardware` | Electronics & PCB | [ENTER](#hardware) |
-| `/embedded` | Firmware & Sensors | [ENTER](#embedded) |
-| `/software` | Systems & AI | [ENTER](#software) |
-| `/projects` | Engineering evidence | [ENTER](#projects) |
-
-</details>
-
----
-
-<a id="embedded"></a>
-
-## `~/skills/embedded`
-
-```text
-visitor@github:~$ cat embedded/info
-
-Architecture:  ARM / RP2040
-Interfaces:    SPI / I2C / UART / RS-485
-Connectivity:  LoRa / Ethernet / TCP
-OS:            Embedded Linux
-```
+<!-- EXPERIMENT: an SVG inside a native summary is a clickable command surface. -->
+<!-- GitHub may add its own disclosure marker. This is intentionally testable. -->
 
 <details>
-<summary>▶ <code>inspect --project lora --verbose</code></summary>
+<summary><img src="./assets/cmd-skills.svg" width="100%" alt="Run ls -la ~/workspace" /></summary>
 
-### LONG-RANGE TELEMETRY
-
-**Test result: 45 km validated**
-
-| Property | Value |
-|---|---|
-| MCU | RP2040 |
-| Radio | RFM95 868 MHz |
-| Antenna | Directional Yagi |
-| Sensors | IMU + GNSS |
+<img src="./assets/out-skills.svg" width="100%" alt="Filesystem-style index of skills" />
 
 <details>
-<summary>▶ <code>cat validation.log</code></summary>
+<summary><img src="./assets/cmd-hardware.svg" width="100%" alt="Run cat hardware README" /></summary>
 
-```diff
-+ RADIO INITIALIZED
-+ TELEMETRY LINK ESTABLISHED
-+ LONG-RANGE TEST COMPLETED
-+ RESULT: 45 KM VALIDATED
-```
+<img src="./assets/out-hardware.svg" width="100%" alt="Hardware skills" />
 
 </details>
 
 <details>
-<summary>▶ <code>cat hardware/tree</code></summary>
+<summary><img src="./assets/cmd-embedded.svg" width="100%" alt="Run cat embedded README" /></summary>
 
-```text
-Telemetry System
-├── TX
-│   ├── RP2040
-│   ├── RFM95
-│   ├── IMU
-│   └── GNSS
-└── RX
-    ├── RP2040
-    ├── RFM95
-    └── USB Host
-```
+<img src="./assets/out-embedded.svg" width="100%" alt="Embedded skills" />
 
 </details>
+</details>
+
+<details>
+<summary><img src="./assets/cmd-projects.svg" width="100%" alt="Run ls projects" /></summary>
+
+<img src="./assets/out-projects.svg" width="100%" alt="Engineering projects index" />
+
+<details>
+<summary><img src="./assets/cmd-camera.svg" width="100%" alt="Inspect CinemaPi5 camera" /></summary>
+
+<img src="./assets/out-camera.svg" width="100%" alt="CinemaPi5 technical profile" />
+
+[View CinemaPi5 source](https://github.com/yassinebkr/cinematepi5)
 
 </details>
 
 <details>
-<summary>▶ <code>inspect --project cinemapi5</code></summary>
+<summary><img src="./assets/cmd-lora.svg" width="100%" alt="Inspect LoRa telemetry" /></summary>
 
-### CINEMAPI5
-
-Custom cinema camera based on Raspberry Pi 5.
-
-| Layer | Implementation |
-|---|---|
-| Image Sensor | Sony IMX283 |
-| Pipeline | Libcamera / PISP |
-| Interface | Web UI / PWA |
-| Features | RAW, LUTs, IMU, HUD |
-
-[VIEW SOURCE](https://github.com/yassinebkr/cinematepi5)
+<img src="./assets/out-lora.svg" width="100%" alt="LoRa 45 km telemetry case study" />
 
 </details>
-
-[← Return to console](#engineering-os)
-
----
-
-<a id="hardware"></a>
-
-## `~/skills/hardware`
-
-<details>
-<summary>▶ <code>cat pcb_design.skills</code></summary>
-
-- KiCad PCB design
-- SPICE simulation
-- Circuit debugging
-- Reflow and soldering
-- Digital and industrial interfaces
-
 </details>
 
-[← Return to console](#engineering-os)
-
----
-
-<a id="software"></a>
-
-## `~/skills/software`
-
-<details>
-<summary>▶ <code>ls /software</code></summary>
-
-```text
-python/
-c-and-cpp/
-linux/
-networking/
-ai-agents/
-web-interfaces/
-```
-
-</details>
-
-[← Return to console](#engineering-os)
-
----
-
-<a id="projects"></a>
-
-## `~/projects`
-
-### System architecture
-
-```mermaid
-flowchart LR
-    A["Engineering"] --> B["Electronics"]
-    A --> C["Software"]
-    B --> D["Embedded"]
-    C --> D
-    D --> E["CinemaPi5"]
-    D --> F["LoRa Telemetry"]
-```
-
-[← Return to console](#engineering-os)
+<sub>Experimental native GitHub Markdown interface · Debian / XFCE · Self-hosted SVG assets · No JavaScript, external service or GitHub Pages required. Interactions use the built-in details/summary element.</sub>
