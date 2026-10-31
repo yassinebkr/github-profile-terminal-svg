@@ -43,17 +43,20 @@ def render_arrow(spec: Arrow) -> str:
         raise ValueError("arrow length must be an even integer from 8 to 36")
     if type(spec.x) is not int or type(spec.y) is not int:
         raise ValueError("arrow coordinates must be integers")
-    if not (8 <= spec.x <= 288 and 8 <= spec.y <= 54):
-        raise ValueError("arrow center is outside the safe button area")
-    if not isinstance(spec.stroke, (float, int)) or not 0.5 <= spec.stroke <= 4:
+    half = spec.length // 2
+    head = int(spec.length * 0.4)
+    horizontal = spec.direction in ("left", "right")
+    x_span, y_span = (half, head) if horizontal else (head, half)
+    if not (8 <= spec.x - x_span and spec.x + x_span <= 288
+            and 8 <= spec.y - y_span and spec.y + y_span <= 54):
+        raise ValueError("arrow would extend outside the button's safe area")
+    if type(spec.stroke) not in (float, int) or not 0.5 <= spec.stroke <= 4:
         raise ValueError("arrow stroke must be between 0.5 and 4")
     if not re.fullmatch(r"#[0-9a-fA-F]{6}", spec.color):
         raise ValueError("arrow color must be a six-digit hex value")
     if not re.fullmatch(r"[a-z][a-z0-9-]*", spec.identifier):
         raise ValueError("arrow identifier must be a safe SVG id")
 
-    half = spec.length // 2
-    head = int(spec.length * 0.4)
     path = (
         f"M{spec.x - half} {spec.y}h{spec.length}"
         f"m-{head}-{head} {head} {head}-{head} {head}"
