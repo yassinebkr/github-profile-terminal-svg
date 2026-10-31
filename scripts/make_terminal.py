@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Generate the Engineering OS terminal graphics for a GitHub profile README.
 
-This is a self-contained generator written for the yassinebkr/test experiment.
-It is NOT a copy or a Python port of AienTech's make_terminal.py.
+This self-contained generator was written for the yassinebkr/test experiment.
+AienTech's SVG terminal concept inspired this independent implementation.
 
 What this program does
 ----------------------
@@ -12,15 +12,15 @@ What this program does
 * Produce SVG representations of system directories and project case studies.
 * Keep every generated image deterministic and free of external dependencies.
 
-What it deliberately does NOT do
---------------------------------
-* Execute Linux commands or JavaScript inside GitHub.
-* Make SVG elements clickable when embedded with <img>.
-* Modify README.md or simulate a working shell input widget.
+Interaction model
+-----------------
+* SVG assets present a visual simulation of a Debian shell session.
+* GitHub renders SVG images with links to their underlying asset files.
+* Native HTML <details>/<summary> controls implement README exploration.
 
-Real README interactivity is provided by HTML <details>/<summary>, with plain
-text inside <summary>. GitHub can wrap SVG images in links to the SVG file,
-so putting images *inside* <summary> is not a reliable clickable control.
+README interactions use HTML <details>/<summary> with text labels.
+GitHub wraps embedded SVGs with links to the image files, so the clickable
+disclosure commands use text labels for reliable expansion.
 
 Usage (from the repository root):
     python3 scripts/make_terminal.py
@@ -35,13 +35,13 @@ from html import escape
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
-# All paths are relative to this script, not the caller's working directory.
+# Resolve paths from this script for consistent execution from any directory.
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "assets"
 
 # --- Editable content -------------------------------------------------------
-# Edit these fields to personalize the header. Do not edit the SVG files
-# directly: a subsequent generator run would overwrite manual modifications.
+# Customize the terminal by editing these fields. Running the generator
+# then refreshes the SVG assets using the current configuration.
 
 USERNAME = "yassine"
 HOSTNAME = "debian"
@@ -151,7 +151,7 @@ PANELS = {
             ("ok", "Antenna        Directional Yagi"),
             ("cyan", "TX [RP2040] )))) 868 MHz (((( [RP2040] RX"),
             ("ok", "[PASS] 45 km wireless link validated"),
-            ("hint", "A measured field result, not a theoretical range"),
+            ("hint", "Measured field result: 45 km validated"),
         ],
     ),
 }
@@ -218,7 +218,7 @@ def document(height: int, contents: str, *, framed: bool = True) -> str:
         "@media(prefers-reduced-motion:reduce){.cursor{animation:none}}"
     )
     # The hero has a window frame. Expanding stdout should appear as a
-    # continuation of the shell, not as a second, unrelated floating card.
+    # continuation of the shell, preserving a consistent terminal surface.
     background = (
         rectangle(
             0.5, 0.5, WIDTH - 1, height - 1, COLORS["bg"],
@@ -242,7 +242,7 @@ def render_home() -> str:
     svg += rectangle(1, 29, 898, 7, COLORS["bar"])
     svg += rectangle(1, 35, 898, 26, COLORS["menu"])
 
-    # XFCE-style controls go on the RIGHT. There are no macOS traffic lights.
+    # Place XFCE-style window controls on the right-hand side.
     svg += text_at(16, 23, "▣", COLORS["green"], weight=700)
     svg += text_at(40, 23, f"{PROMPT}: ~ — {WINDOW_TITLE}", size=13)
     for x, symbol in [(813, "─"), (846, "□"), (875, "×")]:
@@ -255,7 +255,7 @@ def render_home() -> str:
 
     # The command already exists in the SVG. SMIL progressively widens a
     # clipping rectangle so the text looks as though someone is typing it.
-    # This is visual animation, not JavaScript and not actual keyboard input.
+    # SVG controls the visual typing sequence directly through its timeline.
     svg += (
         '<defs><clipPath id="typing">'
         '<rect x="207" y="74" width="203" height="26">'
@@ -269,7 +269,7 @@ def render_home() -> str:
     svg += "</g>"
 
     # Original minimalist Debian-inspired mark, drawn with vector paths.
-    # It is not a screenshot or a raster image.
+    # Vector paths form the Debian-inspired symbol at every display scale.
     svg += (
         f'<g transform="translate(58 138)" stroke="{COLORS["pink"]}" '
         'stroke-width="9" stroke-linecap="round" fill="none">'
@@ -302,8 +302,8 @@ def render_home() -> str:
         COLORS["blue"], size=14,
     )
     # GitHub displays native <summary> controls immediately beneath this
-    # image. Do not draw another fake input prompt here: that would duplicate
-    # the real clickable commands and make the UI look disconnected.
+    # image. The clickable README commands follow immediately below,
+    # maintaining a continuous shell-style reading flow.
     return document(457, svg)
 
 
@@ -314,7 +314,7 @@ def render_home() -> str:
 
 
 def render_command(command: str) -> str:
-    """Render a shell prompt strip (not used as an interactive HTML button)."""
+    """Render a shell prompt strip for visual and layout comparisons."""
     svg = text_at(22, 34, "visitor@debian", COLORS["green"], weight=700)
     svg += text_at(158, 34, ":~$", COLORS["blue"])
     svg += text_at(209, 34, command)
@@ -323,12 +323,11 @@ def render_command(command: str) -> str:
 
 
 def render_output(name: str, lines: list[str | tuple[str, str]]) -> str:
-    """Draw stdout without a separate card border or an artificial exit log.
+    """Draw stdout as a continuous portion of the same terminal.
 
-    A real shell does not create a new terminal window for every command.
-    The README's native disclosure control supplies the command prompt;
-    this SVG therefore shows only the resulting output, in the same colors
-    and text grid as the introduction.
+    A native README disclosure control supplies the command prompt.
+    The SVG shows the resulting output using the introduction's typography
+    and colors for consistent terminal presentation.
     """
     height = 38 + len(lines) * 25
     svg = ""
