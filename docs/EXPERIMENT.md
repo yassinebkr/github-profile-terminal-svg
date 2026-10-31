@@ -14,3 +14,10 @@ The template lives at assets/terminal-template.svg, the Debian artwork at assets
 ## Review
 
 Review the generated asset in the GitHub README; compare its window controls, monochrome shell text, Debian vector, spacing and alignment to XFCE Terminal. The final image can later link to a full GitHub Pages interactive terminal.
+
+## XFCE presentation refinements
+
+- Profile terminal identity: `yassine@debian` throughout the title, commands and listing.
+- Window icon: vector terminal glyph with an aligned prompt chevron and cursor.
+- The eight-character `neofetch` animation ends with a sufficiently wide clipping mask.
+- Prompt placement derives from the full username/hostname length for consistent terminal alignment.

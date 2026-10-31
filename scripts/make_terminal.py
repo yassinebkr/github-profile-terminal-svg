@@ -28,9 +28,11 @@ ICON_PATH = ASSETS / "debian-open-use.svg"
 OUTPUT_PATH = ASSETS / "terminal.svg"
 
 # Editable profile fields allow quick customization of the terminal.
-USER = "kwestog"
-HOST = "anwender"
-WINDOW_TITLE = "Terminal - kwestog@anwender: ~"
+# INPUT_X derives from the complete prompt at 15px DejaVu Sans Mono spacing,
+# keeping animated commands and the final cursor aligned with the shell.
+USER = "yassine"
+HOST = "debian"
+WINDOW_TITLE = "Terminal - yassine@debian: ~"
 
 SYSTEM_FIELDS: tuple[tuple[str, str], ...] = (
     ("OS", "Debian GNU/Linux 13 (trixie)"),
@@ -101,6 +103,7 @@ def build_terminal() -> str:
     result = TEMPLATE_PATH.read_text(encoding="utf-8")
     replacements = {
         "{{WINDOW_TITLE}}": escape(WINDOW_TITLE, quote=True),
+        "{{INPUT_X}}": f"{25 + len(f'{USER}@{HOST}:~$ ') * 9.03:.2f}",
         "{{SHELL_USER_HOST}}": escape(f"{USER}@{HOST}", quote=True),
         "{{DEBIAN_PATH}}": escape(load_debian_path(), quote=True),
         "{{SYSTEM_ROWS}}": render_system_rows(),

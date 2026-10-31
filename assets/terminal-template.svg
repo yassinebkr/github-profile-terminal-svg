@@ -17,8 +17,13 @@
 <path d="M5 1H915Q919 1 919 5V36H1V5Q1 1 5 1Z" fill="#353535"/>
 <rect x="1" y="36" width="918" height="27" fill="#2d2d2d"/>
 <path d="M1 63H919" stroke="#595959" stroke-width="1"/>
-<rect x="14" y="11" width="16" height="15" rx="2" fill="#232323" stroke="#9a9a9a"/>
-<text x="17" y="22" fill="#d1d1d1" font-family="monospace" font-size="11" font-weight="bold">&gt;_</text>
+<!-- XFCE terminal application icon, rendered as compact vector geometry. -->
+<g aria-label="XFCE terminal application icon">
+  <rect x="14.5" y="10.5" width="18" height="17" rx="2.2" fill="#272b30" stroke="#9da4ad" stroke-width="0.9"/>
+  <rect x="16.2" y="12.4" width="14.6" height="12.7" rx="0.8" fill="#171b20"/>
+  <path d="M18.7 16.1l3.5 2.7-3.5 2.7" fill="none" stroke="#ecf1f6" stroke-width="1.45" stroke-linecap="square" stroke-linejoin="miter"/>
+  <path d="M23.4 22.1h4.5" stroke="#ecf1f6" stroke-width="1.35" stroke-linecap="square"/>
+</g>
 <text x="460" y="23" class="ui" font-size="13" text-anchor="middle">{{WINDOW_TITLE}}</text>
 <path d="M851 20h11" stroke="#dedede" stroke-width="1.5"/>
 <rect x="879" y="16" width="8" height="8" fill="none" stroke="#ededed" stroke-width="1.2"/>
@@ -26,14 +31,15 @@
 <g class="ui" font-size="13"><text x="15" y="54">File</text><text x="53" y="54">Edit</text><text x="93" y="54">View</text><text x="140" y="54">Terminal</text><text x="219" y="54">Tabs</text><text x="264" y="54">Help</text></g>
 <g class="mono" xml:space="preserve">
   <text x="25" y="98"><tspan class="prompt">{{SHELL_USER_HOST}}</tspan><tspan class="path">:~</tspan><tspan fill="#d9d9d9">$ </tspan></text>
+  <!-- Character cells use a 15px monospace face. Final clip width clears the entire last glyph. -->
   <defs>
     <clipPath id="typeNeofetch">
-      <rect x="211" y="78" width="0" height="27">
-        <animate attributeName="width" values="0;8.7;17.4;26.1;34.8;43.5;52.2;60.9;69.6" keyTimes="0;0.125;0.25;0.375;0.5;0.625;0.75;0.875;1" begin="0.3s" dur="1.06s" calcMode="discrete" fill="freeze"/>
+      <rect x="{{INPUT_X}}" y="78" width="0" height="27">
+        <animate attributeName="width" values="0;9.1;18.2;27.3;36.4;45.5;54.6;63.7;79" keyTimes="0;0.125;0.25;0.375;0.5;0.625;0.75;0.875;1" begin="0.3s" dur="1.06s" calcMode="discrete" fill="freeze"/>
       </rect>
     </clipPath>
   </defs>
-  <text x="211" y="98" fill="#dedede" clip-path="url(#typeNeofetch)">neofetch</text>
+  <text x="{{INPUT_X}}" y="98" fill="#dedede" clip-path="url(#typeNeofetch)">neofetch</text>
 </g>
 <g transform="translate(53 142) scale(8.85)" fill="#d70751"><path d="{{DEBIAN_PATH}}"/></g>
 <g xml:space="preserve">
@@ -58,6 +64,6 @@
 <g>{{LISTING_ROWS}}</g>
 <g class="mono" xml:space="preserve">
  <text x="25" y="638"><tspan class="prompt">{{SHELL_USER_HOST}}</tspan><tspan class="path">:~</tspan><tspan fill="#d9d9d9">$ </tspan></text>
- <rect x="211" y="623" width="9" height="18" fill="#dedede" class="cursor"/>
+ <rect x="{{INPUT_X}}" y="623" width="9" height="18" fill="#dedede" class="cursor"/>
 </g>
 </svg>
