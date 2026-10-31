@@ -45,8 +45,7 @@ Inspired by the talented [AienTech](https://github.com/AienTech), particularly
 the original [AienTech/aientech profile repository](https://github.com/AienTech/aientech)
 and its [Python terminal generator](https://github.com/AienTech/aientech/blob/main/scripts/make_terminal.py).
 
-This project maintains its own renderer, timeline and layout; the original
-work deserves explicit recognition.
+This project maintains its own renderer, timeline and layout.
 
 ## Use in a GitHub profile
 
