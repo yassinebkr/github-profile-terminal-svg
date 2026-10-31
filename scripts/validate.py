@@ -17,5 +17,15 @@ for p in svg_files:
     assert re.search(r'(?:href|src)=["\']https?://', src) is None, p
 for relative in re.findall(r'src="([^"]+)"', readme):
     assert (ROOT / relative).is_file(), f"Missing image: {relative}"
-assert readme.count("<details>") == readme.count("</details>")
+# Strip README comments before validating disclosure nesting.
+# Commented HTML examples should remain documentation rather than UI elements.
+rendered_markdown = re.sub(r"<!--[\\s\\S]*?-->", "", readme)
+details_stack = []
+for tag in re.findall(r"</?details(?:\\s[^>]*)?>", rendered_markdown):
+    if tag.startswith("</"):
+        assert len(details_stack) > 0, "Closing disclosure lacks an opening element"
+        details_stack.pop()
+    else:
+        details_stack.append(tag)
+assert len(details_stack) == 0, "A disclosure element remains open"
 print(f"validated {len(svg_files)} SVGs, README images and disclosure elements")
