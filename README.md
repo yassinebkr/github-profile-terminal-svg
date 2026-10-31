@@ -1,52 +1,55 @@
 <div align="center">
 
-<img src="./assets/terminal.svg" width="100%" alt="Animated Debian XFCE shell with engineering neofetch" />
+<img src="./assets/terminal.svg" width="100%" alt="Animated Debian/XFCE terminal presenting the engineering profile" />
 
 </div>
 
-<!-- EXPERIMENT: an SVG inside a native summary is a clickable command surface. -->
-<!-- GitHub may add its own disclosure marker. This is intentionally testable. -->
+<!-- GitHub wraps SVG images in links to the original files.                      -->
+<!-- Therefore, only native HTML TEXT in <summary> is used as a clickable command. -->
+<!-- Do not put <img> inside <summary>: clicking it opens the file instead.       -->
 
 <details>
-<summary><img src="./assets/cmd-skills.svg" width="100%" alt="Run ls -la ~/workspace" /></summary>
+<summary><code>visitor@debian:~$ ls -la ~/workspace/</code> ◂ run</summary>
 
-<img src="./assets/out-skills.svg" width="100%" alt="Filesystem-style index of skills" />
+<img src="./assets/out-skills.svg" width="100%" alt="List of engineering skill directories" />
 
 <details>
-<summary><img src="./assets/cmd-hardware.svg" width="100%" alt="Run cat hardware README" /></summary>
+<summary><code>visitor@debian:~$ cat ~/workspace/hardware/README</code> ◂ inspect</summary>
 
-<img src="./assets/out-hardware.svg" width="100%" alt="Hardware skills" />
+<img src="./assets/out-hardware.svg" width="100%" alt="Electronics, PCB design, simulation, and testing experience" />
 
 </details>
 
 <details>
-<summary><img src="./assets/cmd-embedded.svg" width="100%" alt="Run cat embedded README" /></summary>
+<summary><code>visitor@debian:~$ cat ~/workspace/embedded/README</code> ◂ inspect</summary>
 
-<img src="./assets/out-embedded.svg" width="100%" alt="Embedded skills" />
+<img src="./assets/out-embedded.svg" width="100%" alt="Embedded Linux, microcontrollers and communication systems" />
 
 </details>
-</details>
-
-<details>
-<summary><img src="./assets/cmd-projects.svg" width="100%" alt="Run ls projects" /></summary>
-
-<img src="./assets/out-projects.svg" width="100%" alt="Engineering projects index" />
-
-<details>
-<summary><img src="./assets/cmd-camera.svg" width="100%" alt="Inspect CinemaPi5 camera" /></summary>
-
-<img src="./assets/out-camera.svg" width="100%" alt="CinemaPi5 technical profile" />
-
-[View CinemaPi5 source](https://github.com/yassinebkr/cinematepi5)
 
 </details>
 
 <details>
-<summary><img src="./assets/cmd-lora.svg" width="100%" alt="Inspect LoRa telemetry" /></summary>
+<summary><code>visitor@debian:~$ ls ~/projects/</code> ◂ run</summary>
 
-<img src="./assets/out-lora.svg" width="100%" alt="LoRa 45 km telemetry case study" />
+<img src="./assets/out-projects.svg" width="100%" alt="Engineering case studies" />
+
+<details>
+<summary><code>visitor@debian:~$ inspect ~/projects/cinemapi5</code> ◂ inspect</summary>
+
+<img src="./assets/out-camera.svg" width="100%" alt="CinemaPi5: Raspberry Pi 5 and Sony IMX283 camera" />
+
+<code>$ git remote -v</code> · [View CinemaPi5 source](https://github.com/yassinebkr/cinematepi5)
 
 </details>
+
+<details>
+<summary><code>visitor@debian:~$ inspect ~/projects/lora</code> ◂ inspect</summary>
+
+<img src="./assets/out-lora.svg" width="100%" alt="45 km validated LoRa telemetry project" />
+
 </details>
 
-<sub>Experimental native GitHub Markdown interface · Debian / XFCE · Self-hosted SVG assets · No JavaScript, external service or GitHub Pages required. Interactions use the built-in details/summary element.</sub>
+</details>
+
+<sub>Prototype: a Linux terminal drawn with SVG + native GitHub disclosure controls. The command labels are real clickable text; SVG graphics are illustrations and open their source files when clicked. No JavaScript or external hosting.</sub>
