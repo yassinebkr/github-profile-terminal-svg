@@ -29,7 +29,7 @@ static frame after the animation.
 
 | Component | Size |
 | --- | --- |
-| Terminal SVG | 920 × 668 px |
+| Terminal SVG | 920 × 626 px |
 | Each linked CTA | 920 × 74 px |
 | Terminal content | Monospaced text and original Debian vector |
 

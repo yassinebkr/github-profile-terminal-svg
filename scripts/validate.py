@@ -10,7 +10,7 @@ from make_terminal import ROOT, OUTPUT_PATH, build_terminal
 svg = OUTPUT_PATH.read_text(encoding="utf-8")
 assert svg == build_terminal(), "Regenerate terminal.svg from its template"
 root = ET.fromstring(svg)
-assert root.attrib["viewBox"] == "0 0 920 668", "Unexpected image geometry"
+assert root.attrib["viewBox"] == "0 0 920 626", "Unexpected image geometry"
 assert 'fill="#d70751"' in svg, "Debian vector color is missing"
 assert '<path d="' in svg, "Debian path element is missing"
 assert 'clipPath id="typeNeofetch"' in svg, "SMIL typing clip is missing"

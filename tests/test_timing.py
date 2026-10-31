@@ -6,6 +6,7 @@ from xml.etree import ElementTree as ET
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from timing import build_timeline, clip_animation
+from make_terminal import LISTING_FIRST_Y, LINE_HEIGHT, DIRECTORIES
 
 
 class TimelineTests(unittest.TestCase):
@@ -29,6 +30,12 @@ class TimelineTests(unittest.TestCase):
         self.assertEqual(widths, sorted(widths))
         self.assertGreater(widths[-1], len(command) * 9)
         self.assertEqual(animation.attrib["fill"], "freeze")
+
+    def test_final_prompt_follows_listing_without_empty_rows(self):
+        last_row = LISTING_FIRST_Y + (len(DIRECTORIES) - 1) * LINE_HEIGHT
+        prompt_y = LISTING_FIRST_Y + len(DIRECTORIES) * LINE_HEIGHT
+        self.assertEqual(prompt_y - last_row, LINE_HEIGHT)
+        self.assertEqual(prompt_y, 596)
 
     def test_invalid_commands_rejected(self):
         for commands in ((), ("",), ("neofetch", "  ")):

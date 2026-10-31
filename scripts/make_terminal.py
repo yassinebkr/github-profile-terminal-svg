@@ -48,6 +48,8 @@ SYSTEM_FIELDS: tuple[tuple[str, str], ...] = (
 # Permissions, owners and dates model an illustrative GNU/Linux workspace.
 # Each entry follows the familiar column layout of the GNU coreutils ls tool.
 COMMANDS = ("neofetch", "ls -l ~/workspace")
+LISTING_FIRST_Y = 476
+LINE_HEIGHT = 24
 
 DIRECTORIES: tuple[tuple[str, str], ...] = (
     ("Sep 21", "hardware/"),
@@ -90,7 +92,7 @@ def render_listing_rows() -> str:
     """
     rows: list[str] = []
     for index, (date, directory) in enumerate(DIRECTORIES):
-        baseline = 476 + index * 24
+        baseline = LISTING_FIRST_Y + index * LINE_HEIGHT
         owner = USER.ljust(8)
         columns = f"drwxr-xr-x  2 {owner} {owner} 4096 {date}  "
         rows.append(
@@ -104,6 +106,8 @@ def render_listing_rows() -> str:
 def build_terminal() -> str:
     """Combine the template, profile fields and Debian vector geometry."""
     result = TEMPLATE_PATH.read_text(encoding="utf-8")
+    final_prompt_y = LISTING_FIRST_Y + len(DIRECTORIES) * LINE_HEIGHT
+    canvas_height = final_prompt_y + 30
     first, second = build_timeline(COMMANDS).cues
     animation_css = "".join((
         reveal_css("show-profile", first.result_at_ms),
@@ -113,6 +117,10 @@ def build_terminal() -> str:
     ))
     replacements = {
         "{{ANIMATION_CSS}}": animation_css,
+        "{{CANVAS_HEIGHT}}": str(canvas_height),
+        "{{FRAME_HEIGHT}}": str(canvas_height - 1),
+        "{{FINAL_PROMPT_Y}}": str(final_prompt_y),
+        "{{FINAL_CURSOR_Y}}": str(final_prompt_y - 15),
         "{{TYPE_NEOFETCH}}": clip_animation(
             first.command, first.typing_at_ms, first.typing_done_ms
         ),
