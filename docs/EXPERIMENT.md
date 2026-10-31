@@ -1,35 +1,35 @@
-# Engineering OS — native README proof of concept
+# Engineering OS / GitHub README experiment
 
-## Tested interaction
-The GitHub renderer turns embedded SVGs into links to the underlying SVG file.
-An image placed in the `<summary>` of a `<details>` therefore opens the SVG
-when clicked, while the tiny native disclosure marker still expands the section.
-This was reproduced by the user in GitHub's rendered README.
+## GitHub interaction
 
-## Visual revision
-- Retains a single Debian 13/XFCE terminal illustration at the top.
-- Removes the fake input line on the illustration and the redundant [run] labels.
-- Native `<summary><samp>...</samp></summary>` labels make each command clickable.
-- Removes the grey `<code>` pills and distinct borders around the stdout images.
-- Adds full software and fabrication modules.
-- Keeps the SVG content in separate, readable, deterministic assets.
+The terminal is composed from adjacent SVG assets. Each `entry-*.svg` is
+wrapped in a native HTML `<a href="#section">` element, creating a full-row
+click target. Internal heading anchors keep navigation within the README.
 
-## Remaining hard limitations
-The README simulates shell exploration through native disclosure elements.
-Each disclosure manages its own expanded state, while SVG panels display
-predetermined output. GitHub controls disclosure arrow styling. Clicking an
-output SVG opens that asset in the GitHub file viewer.
+The interface uses a simulated `ls -l ~/workspace` listing with representative
+Unix permission, ownership, size, and timestamp fields. The repository's
+engineering domains are the actual destinations of each directory link.
 
-## How to generate and validate
-```bash
-python3 scripts/make_terminal.py
-python3 scripts/validate.py
-```
+## Design
 
-## Manual check after each revision
-1. Use GitHub's Preview tab for the README on this branch.
-2. Click each **command text label** to expand its panel.
-3. Check that hardware/embedded/software/fabrication and CinemaPi5/LoRa expand.
-4. Confirm absence of extra `[run]` labels and grey code pills.
-5. Check mobile width and GitHub light/dark themes.
-6. If the browser image cache is stale, hard-refresh the README.
+- Debian 13 / XFCE terminal aesthetics
+- CSS cursor and SMIL typewriter effects
+- Long-format directory entries, visually continuous with the terminal
+- Native GitHub Markdown anchor navigation
+- Dedicated project and competency sections
+
+## Manual GitHub verification
+
+1. Open this branch's rendered README.
+2. Check the prompt `ls -l ~/workspace` and its directory entries.
+3. Click an entire directory line such as `hardware/`.
+4. Confirm navigation to the matching section on the same page.
+5. Use `Return to workspace` to navigate to the top of the terminal.
+6. Review image seam spacing, responsiveness and keyboard navigation.
+
+## Known behavior
+
+SVG illustrations can open their source assets when GitHub automatically wraps
+them in links. Directory images carry explicit internal links to select the
+matching section. The separate sections present predefined engineering
+information. Each section may be navigated through native Markdown anchors.

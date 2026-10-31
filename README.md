@@ -1,66 +1,49 @@
+<!-- Engineering OS profile: Linux terminal composition with clickable directory rows. -->
+<!-- The SVG rows share dimensions, palette and typography for visual continuity. -->
+
+<a id="workspace"></a>
 <div align="center">
-
-<img src="./assets/terminal.svg" width="100%" alt="Debian XFCE terminal introducing an embedded systems engineering portfolio" />
-
+<img src="./assets/terminal.svg" width="100%" alt="Debian XFCE terminal with animated neofetch and ls -l workspace" /><a href="#hardware"><img src="./assets/entry-hardware.svg" width="100%" alt="Open hardware: PCB engineering and electronic circuits" /></a><a href="#embedded"><img src="./assets/entry-embedded.svg" width="100%" alt="Open embedded: Microcontrollers, embedded Linux and telemetry" /></a><a href="#software"><img src="./assets/entry-software.svg" width="100%" alt="Open software: Software, networking, automation and AI" /></a><a href="#fabrication"><img src="./assets/entry-fabrication.svg" width="100%" alt="Open fabrication: CNC, CAD, 3D printing and reflow" /></a><a href="#projects"><img src="./assets/entry-projects.svg" width="100%" alt="Open projects: Engineering case studies" /></a><img src="./assets/terminal-footer.svg" width="100%" alt="Bash prompt: select a directory above" />
 </div>
 
-<!-- GitHub opens SVG <img> files when clicked. Native text summaries provide command controls. -->
-<!-- Native <details>/<summary> and <samp> labels provide accessible command controls. -->
+<!-- Native links on SVG rows jump to sections of this same README. -->
 
-<details>
-<summary><samp>visitor@debian:~$ ls -la ~/workspace/</samp></summary>
+## Hardware
 
-<img src="./assets/out-skills.svg" width="100%" alt="Engineering skills directory" />
+<img src="./assets/out-hardware.svg" width="100%" alt="Hardware engineering competencies" />
 
-<details>
-<summary><samp>visitor@debian:~$ cat ~/workspace/hardware/README</samp></summary>
+[↰ Return to workspace](#workspace)
 
-<img src="./assets/out-hardware.svg" width="100%" alt="Circuit design, PCB engineering and electronics" />
+## Embedded
 
-</details>
+<img src="./assets/out-embedded.svg" width="100%" alt="Embedded Linux and hardware engineering competencies" />
 
-<details>
-<summary><samp>visitor@debian:~$ cat ~/workspace/embedded/README</samp></summary>
+[↰ Return to workspace](#workspace)
 
-<img src="./assets/out-embedded.svg" width="100%" alt="Embedded Linux, sensors and telemetry" />
+## Software
 
-</details>
+<img src="./assets/out-software.svg" width="100%" alt="Software engineering experience" />
 
-<details>
-<summary><samp>visitor@debian:~$ cat ~/workspace/software/README</samp></summary>
+[↰ Return to workspace](#workspace)
 
-<img src="./assets/out-software.svg" width="100%" alt="Software, networks and automation" />
+## Fabrication
 
-</details>
+<img src="./assets/out-fabrication.svg" width="100%" alt="Workshop capabilities" />
 
-<details>
-<summary><samp>visitor@debian:~$ cat ~/workspace/fabrication/README</samp></summary>
+[↰ Return to workspace](#workspace)
 
-<img src="./assets/out-fabrication.svg" width="100%" alt="Digital fabrication and rapid prototyping" />
+## Projects
 
-</details>
+<img src="./assets/out-projects.svg" width="100%" alt="Engineering projects" />
 
-</details>
+### CinemaPi5
 
-<details>
-<summary><samp>visitor@debian:~$ ls ~/projects/</samp></summary>
+<img src="./assets/out-camera.svg" width="100%" alt="CinemaPi5 case study" />
 
-<img src="./assets/out-projects.svg" width="100%" alt="Engineering projects index" />
+[Source code](https://github.com/yassinebkr/cinematepi5)
 
-<details>
-<summary><samp>visitor@debian:~$ inspect ~/projects/cinemapi5</samp></summary>
+### LoRa Telemetry
 
-<img src="./assets/out-camera.svg" width="100%" alt="Raspberry Pi 5 Sony IMX283 CinemaPi5 project" />
+<img src="./assets/out-lora.svg" width="100%" alt="LoRa 45 km field test" />
 
-<samp>$ git remote -v</samp> · [CinemaPi5 source](https://github.com/yassinebkr/cinematepi5)
-
-</details>
-
-<details>
-<summary><samp>visitor@debian:~$ inspect ~/projects/lora</samp></summary>
-
-<img src="./assets/out-lora.svg" width="100%" alt="45 km LoRa telemetry case study" />
-
-</details>
-
-</details>
+[↰ Return to workspace](#workspace)
