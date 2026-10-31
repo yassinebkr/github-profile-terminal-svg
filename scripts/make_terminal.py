@@ -42,7 +42,7 @@ SYSTEM_FIELDS: tuple[tuple[str, str], ...] = (
     ("Terminal", "xfce4-terminal"),
     ("Focus", "Electronics / Embedded Systems"),
     ("Toolchain", "KiCad / Python / C / C++"),
-    ("Projects", "CinemaPi5 / LoRa telemetry"),
+    ("Projects", "CinemaPi5 / LoRa / BigBrain"),
 )
 
 # Permissions, owners and dates model an illustrative GNU/Linux workspace.
