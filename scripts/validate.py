@@ -19,9 +19,9 @@ for relative in re.findall(r'src="([^"]+)"', readme):
     assert (ROOT / relative).is_file(), f"Missing image: {relative}"
 # Strip README comments before validating disclosure nesting.
 # Commented HTML examples should remain documentation rather than UI elements.
-rendered_markdown = re.sub(r"<!--[\\s\\S]*?-->", "", readme)
+rendered_markdown = re.sub(r"<!--.*?-->", "", readme, flags=re.DOTALL)
 details_stack = []
-for tag in re.findall(r"</?details(?:\\s[^>]*)?>", rendered_markdown):
+for tag in re.findall(r"</?details[^>]*>", rendered_markdown):
     if tag.startswith("</"):
         assert len(details_stack) > 0, "Closing disclosure lacks an opening element"
         details_stack.pop()
