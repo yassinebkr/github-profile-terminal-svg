@@ -58,6 +58,14 @@ for asset in ("shellfolio-button.svg", "source-button.svg"):
     assert graphic.attrib.get("width") == "296", f"Inconsistent width: {asset}"
     assert graphic.attrib.get("height") == "62", f"Inconsistent height: {asset}"
     assert len(graphic.findall("{http://www.w3.org/2000/svg}path")) >= 2, f"Missing accent or arrow in {asset}"
+    if asset == "shellfolio-button.svg":
+        labels = [node.text or "" for node in graphic.findall("{http://www.w3.org/2000/svg}text")]
+        assert "↑ Click terminal above" in labels, "Profile CTA must point to the clickable terminal"
+        assert "OR CLICK HERE TO OPEN" in labels, "Button must retain its own call to action"
+        title = graphic.find("{http://www.w3.org/2000/svg}title")
+        description = graphic.find("{http://www.w3.org/2000/svg}desc")
+        assert title is not None and "Click terminal above" in (title.text or "")
+        assert description is not None and "click this button" in (description.text or "")
 assert "ShellFolio/?run=launch" in readme, "The public site must run its virtual launcher"
 
 # The reusable profile snippet must link the animated illustration itself.
