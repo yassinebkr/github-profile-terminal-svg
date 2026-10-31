@@ -42,6 +42,7 @@ icon_group = [group for group in root.findall(f".//{svg_ns}g") if group.attrib.g
 assert len(icon_group) == 1, "XFCE terminal application icon missing"
 assert 'class="cursor"' in svg, "Shell cursor is missing"
 assert "ls -l ~/workspace" in svg, "Long-format directory listing is missing"
+assert "CinemaPi5 / LoRa / BigBrain" in svg, "Profile SVG must include BigBrain"
 for _date, directory in DIRECTORIES:
     assert directory in svg, f"Missing directory: {directory}"
 assert f"total {len(DIRECTORIES) * 4}" in svg, "Incorrect listing block count"
