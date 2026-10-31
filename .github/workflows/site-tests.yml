@@ -1,0 +1,35 @@
+name: Test interactive engineering terminal
+
+on:
+  push:
+    paths:
+      - 'docs/**'
+      - '.github/workflows/site-tests.yml'
+  pull_request:
+    paths:
+      - 'docs/**'
+      - '.github/workflows/site-tests.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run virtual shell unit tests
+        run: node --test docs/tests/*.test.mjs
+      - name: Check browser module syntax
+        run: |
+          node --check docs/app.js
+          node --check docs/engine.js
+      - name: Check static site files
+        run: |
+          test -s docs/index.html
+          test -s docs/style.css
+          test -s docs/assets/debian.svg
+          test -f docs/.nojekyll
