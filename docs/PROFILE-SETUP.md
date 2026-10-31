@@ -45,8 +45,9 @@ Paste the updated snippet into the profile repository's `README.md`:
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/GITHUB_USERNAME/GENERATOR_REPO/main/assets/terminal.svg"
-       width="100%" alt="Animated Debian XFCE terminal profile" />
+  <a href="PORTFOLIO_URL"><img
+    src="https://raw.githubusercontent.com/GITHUB_USERNAME/GENERATOR_REPO/main/assets/terminal.svg"
+    width="100%" alt="Open the interactive portfolio from this animated terminal" /></a>
 </p>
 
 <p align="center">
@@ -64,10 +65,11 @@ Paste the updated snippet into the profile repository's `README.md`:
 </p>
 ```
 
-The terminal SVG is an image, not an interactive shell. The two compact
-buttons share a 296 × 62 px viewport and explicit HTML dimensions: one
-opens your portfolio, the other opens the generator source. The profile also
-invites visitors to explore your other repositories.
+The SVG is an animated image and **clicking it opens your portfolio**. The
+first compact button opens the same destination; the second opens the
+generator's source. Both buttons have a 296 × 62 px viewport and explicit
+HTML dimensions. The profile also invites visitors to explore other
+repositories.
 
 ## 4. Check the profile
 
