@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { TerminalEngine, resolvePath, tokenize } from '../engine.js';
+import { TerminalEngine, resolvePath, tokenize } from '../web/engine.js';
 
 const stringify = response => response.lines.flatMap(line => line.parts.map(part => part.text)).join('\n');
 

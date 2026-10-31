@@ -1,13 +1,17 @@
-name: Test interactive engineering terminal
+name: Test ShellFolio interactive terminal
 
 on:
   push:
     paths:
-      - 'docs/**'
+      - 'web/**'
+      - 'tests/**'
+      - 'package.json'
       - '.github/workflows/site-tests.yml'
   pull_request:
     paths:
-      - 'docs/**'
+      - 'web/**'
+      - 'tests/**'
+      - 'package.json'
       - '.github/workflows/site-tests.yml'
 
 permissions:
@@ -21,15 +25,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Run virtual shell unit tests
-        run: node --test docs/tests/*.test.mjs
-      - name: Check browser module syntax
+      - name: Test the virtual shell
+        run: npm test
+      - name: Validate browser scripts
         run: |
-          node --check docs/app.js
-          node --check docs/engine.js
-      - name: Check static site files
+          node --check web/app.js
+          node --check web/engine.js
+      - name: Check application assets
         run: |
-          test -s docs/index.html
-          test -s docs/style.css
-          test -s docs/assets/debian.svg
-          test -f docs/.nojekyll
+          test -s web/index.html
+          test -s web/style.css
+          test -s web/assets/debian.svg
