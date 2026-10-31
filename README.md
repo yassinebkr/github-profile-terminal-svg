@@ -8,18 +8,11 @@ listing.
 
 <img src="./assets/terminal.svg" width="100%" alt="Animated Debian XFCE terminal with commands and project information" />
 
-<a href="https://yassinebkr.github.io/ShellFolio/?run=launch">
-  <img src="./assets/pages-cta.svg" width="100%" alt="Open the interactive ShellFolio portfolio" />
-</a>
-
-<a href="./docs/README.md">
-  <img src="./assets/how-made-it.svg" width="100%" alt="View the SVG generator and documentation" />
-</a>
-
 </div>
 
-The SVG is an illustration. For an interactive terminal, follow the
-**ShellFolio** link above.
+The animation is a generated preview. Try the
+[interactive ShellFolio portfolio](https://yassinebkr.github.io/ShellFolio/?run=launch)
+for a working terminal.
 
 ## Customize
 
@@ -45,6 +38,15 @@ The generator uses Python's standard library. GitHub Actions checks that
 [Generator details](docs/README.md) ·
 [Animation and layout](docs/EXPERIMENT.md) ·
 [Artwork credits](docs/DEBIAN-LOGO.md)
+
+## Credits
+
+Inspired by the talented [AienTech](https://github.com/AienTech), particularly
+the original [AienTech/aientech profile repository](https://github.com/AienTech/aientech)
+and its [Python terminal generator](https://github.com/AienTech/aientech/blob/main/scripts/make_terminal.py).
+
+This project maintains its own renderer, timeline and layout; the original
+work deserves explicit recognition.
 
 ## Use in a GitHub profile
 

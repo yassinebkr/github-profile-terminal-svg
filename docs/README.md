@@ -11,8 +11,8 @@
 | `assets/terminal-template.svg` | XFCE-style layout and animation groups |
 | `assets/debian-open-use.svg` | Debian vector artwork |
 | `assets/terminal.svg` | Generated profile illustration |
-| `assets/pages-cta.svg` | Link to ShellFolio |
-| `assets/how-made-it.svg` | Link to this documentation |
+| `assets/shellfolio-button.svg` | Compact link to the live portfolio from a profile README |
+| `assets/source-button.svg` | Compact link to the generator repository from a profile README |
 
 ## Regenerate
 

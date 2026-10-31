@@ -39,26 +39,35 @@ Replace these placeholders **everywhere** in the snippet:
 Paste the updated snippet into the profile repository's `README.md`:
 
 ```html
-<div align="center">
+<p align="center">
+  I build electronics and the software around them — from embedded Linux
+  and wireless systems to tools and experimental interfaces.
+</p>
 
-<img src="https://raw.githubusercontent.com/GITHUB_USERNAME/GENERATOR_REPO/main/assets/terminal.svg"
-     width="100%" alt="Animated Debian XFCE terminal profile" />
+<p align="center">
+  <img src="https://raw.githubusercontent.com/GITHUB_USERNAME/GENERATOR_REPO/main/assets/terminal.svg"
+       width="100%" alt="Animated Debian XFCE terminal profile" />
+</p>
 
-<a href="PORTFOLIO_URL">
-  <img src="https://raw.githubusercontent.com/GITHUB_USERNAME/GENERATOR_REPO/main/assets/pages-cta.svg"
-       width="100%" alt="Explore my interactive portfolio" />
-</a>
+<p align="center">
+  <a href="PORTFOLIO_URL"><img
+    src="https://raw.githubusercontent.com/GITHUB_USERNAME/GENERATOR_REPO/main/assets/shellfolio-button.svg"
+    width="296" height="62" alt="Open the interactive portfolio" /></a>
+  <a href="https://github.com/GITHUB_USERNAME/GENERATOR_REPO"><img
+    src="https://raw.githubusercontent.com/GITHUB_USERNAME/GENERATOR_REPO/main/assets/source-button.svg"
+    width="296" height="62" alt="View SVG generator source and build notes" /></a>
+</p>
 
-<a href="https://github.com/GITHUB_USERNAME/GENERATOR_REPO">
-  <img src="https://raw.githubusercontent.com/GITHUB_USERNAME/GENERATOR_REPO/main/assets/how-made-it.svg"
-       width="100%" alt="How this terminal was made" />
-</a>
-
-</div>
+<p align="center">
+  ↓ Explore the pinned repositories below, or
+  <a href="https://github.com/GITHUB_USERNAME?tab=repositories">browse all projects</a>.
+</p>
 ```
 
-The terminal SVG is an image, not an interactive shell. The first linked
-graphic opens your portfolio; the second opens the generator source.
+The terminal SVG is an image, not an interactive shell. The two compact
+buttons share a 296 × 62 px viewport and explicit HTML dimensions: one
+opens your portfolio, the other opens the generator source. The profile also
+invites visitors to explore your other repositories.
 
 ## 4. Check the profile
 

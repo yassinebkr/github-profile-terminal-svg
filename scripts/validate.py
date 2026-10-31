@@ -51,10 +51,12 @@ assert re.search(r'(?:href|src)=["\']https?://', svg) is None, "External resourc
 readme = (ROOT / "README.md").read_text(encoding="utf-8")
 for relative in re.findall(r'src="([^"]+)"', readme):
     assert (ROOT / relative).exists(), f"Missing README asset: {relative}"
-# Related README link graphics must share exact dimensions and geometry.
-for asset in ("pages-cta.svg", "how-made-it.svg"):
+# Both profile CTA graphics are intentionally compact, identical in size.
+for asset in ("shellfolio-button.svg", "source-button.svg"):
     graphic = ET.parse(ROOT / "assets" / asset).getroot()
-    assert graphic.attrib.get("viewBox") == "0 0 920 74", f"Misaligned CTA: {asset}"
-    assert graphic.attrib.get("height") == "74", f"Inconsistent height: {asset}"
+    assert graphic.attrib.get("viewBox") == "0 0 296 62", f"Misaligned CTA: {asset}"
+    assert graphic.attrib.get("width") == "296", f"Inconsistent width: {asset}"
+    assert graphic.attrib.get("height") == "62", f"Inconsistent height: {asset}"
+    assert len(graphic.findall("{http://www.w3.org/2000/svg}path")) >= 2, f"Missing accent or arrow in {asset}"
 assert "ShellFolio/?run=launch" in readme, "The public site must run its virtual launcher"
 print("validated vector logo, GTK chrome, Unix listing, aligned links, and README")

@@ -30,15 +30,18 @@ static frame after the animation.
 | Component | Size |
 | --- | --- |
 | Terminal SVG | 920 × 626 px |
-| Each linked CTA | 920 × 74 px |
+| Each linked CTA | 296 × 62 px |
 | Terminal content | Monospaced text and original Debian vector |
 
-The linked graphics share dimensions for consistent alignment.
+Both linked graphics use the same intrinsic size. In a profile README,
+render them at that explicit size, next to each other inside a centered
+paragraph. On narrow screens they can wrap independently.
 
 ## Attribution
 
-The initial concept was inspired by
-[AienTech/aientech](https://github.com/AienTech/aientech).
-The generator and timeline are independently implemented.
+The initial concept was inspired by the talented
+[AienTech](https://github.com/AienTech), especially their original
+[AienTech/aientech profile](https://github.com/AienTech/aientech).
+The generator and timeline here are independently implemented.
 
 See [Debian vector provenance](DEBIAN-LOGO.md).
