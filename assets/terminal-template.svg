@@ -77,7 +77,7 @@
   <text x="{{INPUT_X}}" y="429" fill="#dedede" clip-path="url(#typeWorkspace)">ls -l ~/workspace</text>
 </g>
 <g class="show-list-output">
-  <text x="25" y="454" class="mono" fill="#c8c8c8" font-size="14">total 20</text>
+  <text x="25" y="454" class="mono" fill="#c8c8c8" font-size="14">total {{TOTAL_BLOCKS}}</text>
   <g>{{LISTING_ROWS}}</g>
 </g>
 <g class="show-final-prompt mono" xml:space="preserve">

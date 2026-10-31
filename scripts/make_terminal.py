@@ -33,7 +33,7 @@ OUTPUT_PATH = ASSETS / "terminal.svg"
 # keeping animated commands and the final cursor aligned with the shell.
 USER = "yassine"
 HOST = "debian"
-WINDOW_TITLE = "Terminal - yassine@debian: ~"
+WINDOW_TITLE = f"Terminal - {USER}@{HOST}: ~"
 
 SYSTEM_FIELDS: tuple[tuple[str, str], ...] = (
     ("OS", "Debian GNU/Linux 13 (trixie)"),
@@ -133,6 +133,7 @@ def build_terminal() -> str:
         "{{DEBIAN_PATH}}": escape(load_debian_path(), quote=True),
         "{{SYSTEM_ROWS}}": render_system_rows(),
         "{{LISTING_ROWS}}": render_listing_rows(),
+        "{{TOTAL_BLOCKS}}": str(len(DIRECTORIES) * 4),
     }
     for marker, value in replacements.items():
         result = result.replace(marker, value)

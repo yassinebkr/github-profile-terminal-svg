@@ -41,6 +41,7 @@ python3 -m unittest discover -s tests -v
 The generator uses Python's standard library. GitHub Actions checks that
 `assets/terminal.svg` matches the source files.
 
+[Profile setup guide](docs/PROFILE-SETUP.md) ·
 [Generator details](docs/README.md) ·
 [Animation and layout](docs/EXPERIMENT.md) ·
 [Artwork credits](docs/DEBIAN-LOGO.md)

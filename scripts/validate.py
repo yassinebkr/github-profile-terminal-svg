@@ -5,7 +5,7 @@ import re
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
-from make_terminal import ROOT, OUTPUT_PATH, build_terminal
+from make_terminal import ROOT, OUTPUT_PATH, build_terminal, USER, HOST, WINDOW_TITLE, DIRECTORIES
 
 svg = OUTPUT_PATH.read_text(encoding="utf-8")
 assert svg == build_terminal(), "Regenerate terminal.svg from its template"
@@ -14,8 +14,8 @@ assert root.attrib["viewBox"] == "0 0 920 626", "Unexpected image geometry"
 assert 'fill="#d70751"' in svg, "Debian vector color is missing"
 assert '<path d="' in svg, "Debian path element is missing"
 assert 'clipPath id="typeNeofetch"' in svg, "SMIL typing clip is missing"
-assert "Terminal - yassine@debian: ~" in svg, "Incorrect XFCE title"
-assert svg.count("yassine@debian") >= 4, "Profile prompt mismatch"
+assert WINDOW_TITLE in svg, "Incorrect XFCE title"
+assert svg.count(f"{USER}@{HOST}") >= 4, "Profile prompt mismatch"
 # The final clipping width covers all eight glyphs of the neofetch command.
 svg_ns = "{http://www.w3.org/2000/svg}"
 type_clip = root.find(f".//{svg_ns}clipPath[@id='typeNeofetch']/{svg_ns}rect/{svg_ns}animate")
@@ -41,8 +41,9 @@ icon_group = [group for group in root.findall(f".//{svg_ns}g") if group.attrib.g
 assert len(icon_group) == 1, "XFCE terminal application icon missing"
 assert 'class="cursor"' in svg, "Shell cursor is missing"
 assert "ls -l ~/workspace" in svg, "Long-format directory listing is missing"
-for directory in ("hardware/", "embedded/", "software/", "fabrication/", "projects/"):
+for _date, directory in DIRECTORIES:
     assert directory in svg, f"Missing directory: {directory}"
+assert f"total {len(DIRECTORIES) * 4}" in svg, "Incorrect listing block count"
 assert svg.count("<script") == 0, "Script elements detected"
 assert svg.count("<foreignObject") == 0, "Foreign objects detected"
 assert re.search(r'(?:href|src)=["\']https?://', svg) is None, "External resource detected"

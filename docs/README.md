@@ -43,5 +43,5 @@ separate website such as [ShellFolio](https://yassinebkr.github.io/ShellFolio/).
 For GitHub to show a profile README, its repository name must match your
 account username. The generator itself can have any repository name.
 
-See [animation choices](EXPERIMENT.md) and
+See [profile setup](PROFILE-SETUP.md), [animation choices](EXPERIMENT.md) and
 [Debian logo attribution](DEBIAN-LOGO.md).

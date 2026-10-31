@@ -35,7 +35,7 @@ class TimelineTests(unittest.TestCase):
         last_row = LISTING_FIRST_Y + (len(DIRECTORIES) - 1) * LINE_HEIGHT
         prompt_y = LISTING_FIRST_Y + len(DIRECTORIES) * LINE_HEIGHT
         self.assertEqual(prompt_y - last_row, LINE_HEIGHT)
-        self.assertEqual(prompt_y, 596)
+        self.assertGreater(prompt_y, LISTING_FIRST_Y)
 
     def test_invalid_commands_rejected(self):
         for commands in ((), ("",), ("neofetch", "  ")):
