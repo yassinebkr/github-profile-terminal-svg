@@ -60,8 +60,15 @@ for asset in ("shellfolio-button.svg", "source-button.svg"):
     assert len(graphic.findall("{http://www.w3.org/2000/svg}path")) >= 2, f"Missing accent or arrow in {asset}"
     if asset == "shellfolio-button.svg":
         labels = [node.text or "" for node in graphic.findall("{http://www.w3.org/2000/svg}text")]
-        assert "↑ Click terminal above" in labels, "Profile CTA must point to the clickable terminal"
+        assert "Click terminal above" in labels, "Profile CTA must point to the clickable terminal"
         assert "OR CLICK HERE TO OPEN" in labels, "Button must retain its own call to action"
+        svg_ns = "{http://www.w3.org/2000/svg}"
+        large_arrow = graphic.find(f"{svg_ns}path[@id='terminal-up-arrow']")
+        small_arrow = graphic.find(f"{svg_ns}path[@id='button-open-arrow']")
+        assert large_arrow is not None, "Missing prominent upward terminal CTA arrow"
+        assert small_arrow is not None, "Missing inline rightward open button arrow"
+        assert "V17" in large_arrow.attrib["d"], "Large arrow should point upward"
+        assert "h14" in small_arrow.attrib["d"], "Small arrow should point right"
         title = graphic.find("{http://www.w3.org/2000/svg}title")
         description = graphic.find("{http://www.w3.org/2000/svg}desc")
         assert title is not None and "Click terminal above" in (title.text or "")
