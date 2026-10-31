@@ -73,6 +73,21 @@ for asset in ("shellfolio-button.svg", "source-button.svg"):
         description = graphic.find("{http://www.w3.org/2000/svg}desc")
         assert title is not None and "Click terminal above" in (title.text or "")
         assert description is not None and "click this button" in (description.text or "")
+# The profile uses a distinct asset path to avoid stale GitHub image proxy caches.
+# Its large upward arrow must point to the animated terminal, while the
+# smaller right arrow must immediately follow the secondary call to action.
+new_cta = ET.parse(ROOT / "assets" / "shellfolio-cta-arrows-v2.svg").getroot()
+assert new_cta.attrib.get("viewBox") == "0 0 296 62", "Profile CTA dimensions changed"
+new_labels = [node.text or "" for node in new_cta.findall(f"{svg_ns}text")]
+assert new_labels == ["Click terminal above", "OR CLICK HERE TO OPEN"], "Unexpected new CTA labels"
+up_arrow = new_cta.find(f"{svg_ns}path[@id='terminal-up-arrow']")
+right_arrow = new_cta.find(f"{svg_ns}path[@id='button-open-arrow']")
+assert up_arrow is not None and up_arrow.attrib["d"] == "M264 45V15m-11 11 11-11 11 11", "The large up arrow is missing or misplaced"
+assert up_arrow.attrib.get("stroke-width") == "3", "The upward arrow must be prominent"
+assert right_arrow is not None and right_arrow.attrib["d"] == "M158 42h16m-5-5 5 5-5 5", "The small inline arrow is missing or misplaced"
+assert right_arrow.attrib.get("stroke-width") == "1.8", "The inline arrow should be visually secondary"
+assert not any(label.startswith("↑") for label in new_labels), "Do not use a tiny text-arrow glyph"
+
 assert "ShellFolio/?run=launch" in readme, "The public site must run its virtual launcher"
 
 # The reusable profile snippet must link the animated illustration itself.
