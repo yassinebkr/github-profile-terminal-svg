@@ -1,33 +1,28 @@
 #!/usr/bin/env python3
-"""Validate the generated SVG and README references using the Python standard library."""
+"""Validate the deterministic Debian XFCE terminal build."""
 
+import re
 from pathlib import Path
 from xml.etree import ElementTree as ET
-import re
 
-ROOT = Path(__file__).resolve().parent.parent
-README = (ROOT / "README.md").read_text(encoding="utf-8")
-ASSETS = ROOT / "assets"
-TERMINAL = ASSETS / "terminal.svg"
+from make_terminal import ROOT, OUTPUT_PATH, build_terminal
 
-# Confirm the single-scene source asset exists and parses as XML.
-assert TERMINAL.is_file(), "Missing generated terminal SVG"
-xml = TERMINAL.read_text(encoding="utf-8")
-root = ET.fromstring(xml)
-assert root.tag.endswith("svg"), "Expected an SVG root element"
-
-# Verify the home scene and the long-format listing are represented.
-assert "ls -l ~/workspace" in xml, "The shell listing is absent"
+svg = OUTPUT_PATH.read_text(encoding="utf-8")
+assert svg == build_terminal(), "Regenerate terminal.svg from its template"
+root = ET.fromstring(svg)
+assert root.attrib["viewBox"] == "0 0 920 668", "Unexpected image geometry"
+assert 'fill="#d70751"' in svg, "Debian vector color is missing"
+assert '<path d="' in svg, "Debian path element is missing"
+assert 'clipPath id="typeNeofetch"' in svg, "SMIL typing clip is missing"
+assert 'class="cursor"' in svg, "Shell cursor is missing"
+assert "ls -l ~/workspace" in svg, "Long-format directory listing is missing"
 for directory in ("hardware/", "embedded/", "software/", "fabrication/", "projects/"):
-    assert directory in xml, f"Missing long-format directory: {directory}"
-assert "<animate " in xml, "Expected an SMIL command animation"
-assert "class=\"cursor\"" in xml, "Expected a visible shell cursor"
+    assert directory in svg, f"Missing directory: {directory}"
+assert svg.count("<script") == 0, "Script elements detected"
+assert svg.count("<foreignObject") == 0, "Foreign objects detected"
+assert re.search(r'(?:href|src)=["\']https?://', svg) is None, "External resource detected"
 
-# Keep references local and ensure all README images are available.
-assert xml.count("<script") == 0, "SVG script elements detected"
-assert xml.count("<foreignObject") == 0, "Foreign HTML elements detected"
-assert re.search(r'(?:href|src)=["\']https?://', xml) is None, "External SVG resource found"
-for relative in re.findall(r'src="([^"]+)"', README):
-    assert (ROOT / relative).is_file(), f"Missing README image: {relative}"
-
-print("validated terminal SVG structure, animation and README asset references")
+readme = (ROOT / "README.md").read_text(encoding="utf-8")
+for relative in re.findall(r'src="([^"]+)"', readme):
+    assert (ROOT / relative).exists(), f"Missing README asset: {relative}"
+print("validated vector logo, GTK chrome, Unix listing, animations, and README")

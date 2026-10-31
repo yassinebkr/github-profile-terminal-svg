@@ -1,15 +1,10 @@
-name: Validate terminal README
+name: Validate XFCE terminal
 
 on:
   push:
-    branches:
-      - experiment/interactive-terminal
+    branches: [experiment/interactive-terminal]
   pull_request:
-    paths:
-      - README.md
-      - assets/**
-      - scripts/make_terminal.py
-      - scripts/validate.py
+    paths: [README.md, 'assets/**', 'scripts/**', '.github/workflows/validate.yml']
 
 permissions:
   contents: read
@@ -19,13 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Syntax-check and regenerate SVGs
-        # Run the documented generator on the CI runner, without committing.
-        # This verifies the Python source as well as XML generation.
+      - name: Regenerate and validate vector asset
         run: |
-          python3 -m py_compile scripts/make_terminal.py
+          python3 -m py_compile scripts/make_terminal.py scripts/validate.py
           python3 scripts/make_terminal.py
-      - name: Validate generated XML and README references
-        run: python3 scripts/validate.py
-      - name: Verify generated asset matches committed SVG
+          python3 scripts/validate.py
+      - name: Verify reproducible output
         run: git diff --exit-code -- assets/terminal.svg

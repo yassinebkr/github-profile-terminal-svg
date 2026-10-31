@@ -1,43 +1,16 @@
-# Engineering OS — single SVG prototype
+# Engineering OS — XFCE visual revision
 
-## Design goal
+The terminal uses a single standalone SVG image. Its XFCE-style title bar, GTK menu and near-black shell colors are based on the user's reference screenshot.
 
-The README presents a coherent Debian XFCE terminal scene. Its system summary,
-animated command and long-format directory listing share one SVG viewBox,
-a fixed monospace grid and a consistent palette.
+The Debian vector geometry is embedded directly from the local vector source. The generator draws the long-format Unix listing with realistic permissions, owners, sizes and sample timestamps.
 
-## Building the asset
+## Rebuild
 
-```bash
-python3 scripts/make_terminal.py
-python3 scripts/validate.py
-```
+    python3 scripts/make_terminal.py
+    python3 scripts/validate.py
 
-The generator uses only the Python standard library. Comments and docstrings
-explain the rendering coordinates, animation methods and editable content.
+The template lives at assets/terminal-template.svg, the Debian artwork at assets/debian-open-use.svg, and the resulting file at assets/terminal.svg.
 
-## GitHub rendering
+## Review
 
-GitHub presents the SVG as an embedded image, including SMIL and CSS animation.
-The embedded image displays a complete terminal illustration. Additional
-technical content can be introduced through explicitly designed profile
-sections as the project develops.
-
-## Engineering constraints
-
-GitHub Markdown supports navigation links and native disclosure elements.
-Each mechanism follows GitHub's own UI presentation. The terminal SVG is a
-self-contained illustration; its animated appearance serves as the profile's
-main experience.
-
-The directory listing's file metadata is illustrative and represents a
-fictional Linux workspace. Project claims reflect the documented engineering
-experiments, including the validated 45 km LoRa field test.
-
-## Manual review
-
-1. Open the branch's GitHub README preview.
-2. Confirm the XFCE chrome and Debian swirl remain visually cohesive.
-3. Check the command `ls -l ~/workspace` and its five aligned entries.
-4. Verify the cursor animation and introductory command reveal.
-5. Inspect both narrow and desktop browser widths.
+Review the generated asset in the GitHub README; compare its window controls, monochrome shell text, Debian vector, spacing and alignment to XFCE Terminal. The final image can later link to a full GitHub Pages interactive terminal.

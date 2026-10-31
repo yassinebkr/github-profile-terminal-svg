@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="668" viewBox="0 0 920 668" role="img" aria-labelledby="title description">
+<title id="title">Engineering profile — XFCE Terminal on Debian 13</title>
+<desc id="description">A Linux terminal session with the Debian swirl, engineering profile and long-format workspace listing.</desc>
+<style>
+  .mono {font-family:"DejaVu Sans Mono","Liberation Mono",monospace;font-size:15px}
+  .body {font-family:"DejaVu Sans Mono","Liberation Mono",monospace;font-size:14px;fill:#dedede}
+  .listing {font-family:"DejaVu Sans Mono","Liberation Mono",monospace;font-size:13.8px;fill:#c8c8c8}
+  .ui {font-family:Arial,"DejaVu Sans",sans-serif;fill:#e4e4e4}
+  .muted {fill:#858585}.prompt {fill:#65ed74}.path {fill:#90baf8}
+  .key {fill:#d90d50;font-weight:700}.directory {fill:#8c94ff;font-weight:700}
+  .permissions {fill:#c3c3c3}
+  @keyframes blink {0%,49%{opacity:1}50%,100%{opacity:0}}
+  .cursor {animation:blink 1.12s steps(1,end) infinite}
+  @media (prefers-reduced-motion:reduce) {.cursor {animation:none}}
+</style>
+<rect x="0.5" y="0.5" width="919" height="667" rx="5" fill="#050505" stroke="#575757"/>
+<path d="M5 1H915Q919 1 919 5V36H1V5Q1 1 5 1Z" fill="#353535"/>
+<rect x="1" y="36" width="918" height="27" fill="#2d2d2d"/>
+<path d="M1 63H919" stroke="#595959" stroke-width="1"/>
+<rect x="14" y="11" width="16" height="15" rx="2" fill="#232323" stroke="#9a9a9a"/>
+<text x="17" y="22" fill="#d1d1d1" font-family="monospace" font-size="11" font-weight="bold">&gt;_</text>
+<text x="460" y="23" class="ui" font-size="13" text-anchor="middle">{{WINDOW_TITLE}}</text>
+<path d="M851 20h11" stroke="#dedede" stroke-width="1.5"/>
+<rect x="879" y="16" width="8" height="8" fill="none" stroke="#ededed" stroke-width="1.2"/>
+<path d="M904 16l8 8m0-8l-8 8" stroke="#ededed" stroke-width="1.2"/>
+<g class="ui" font-size="13"><text x="15" y="54">File</text><text x="53" y="54">Edit</text><text x="93" y="54">View</text><text x="140" y="54">Terminal</text><text x="219" y="54">Tabs</text><text x="264" y="54">Help</text></g>
+<g class="mono" xml:space="preserve">
+  <text x="25" y="98"><tspan class="prompt">{{SHELL_USER_HOST}}</tspan><tspan class="path">:~</tspan><tspan fill="#d9d9d9">$ </tspan></text>
+  <defs>
+    <clipPath id="typeNeofetch">
+      <rect x="211" y="78" width="0" height="27">
+        <animate attributeName="width" values="0;8.7;17.4;26.1;34.8;43.5;52.2;60.9;69.6" keyTimes="0;0.125;0.25;0.375;0.5;0.625;0.75;0.875;1" begin="0.3s" dur="1.06s" calcMode="discrete" fill="freeze"/>
+      </rect>
+    </clipPath>
+  </defs>
+  <text x="211" y="98" fill="#dedede" clip-path="url(#typeNeofetch)">neofetch</text>
+</g>
+<g transform="translate(53 142) scale(8.85)" fill="#d70751"><path d="{{DEBIAN_PATH}}"/></g>
+<g xml:space="preserve">
+  <text x="335" y="152" class="body" style="fill:#d90d50;font-weight:700">{{SHELL_USER_HOST}}</text>
+  <text x="335" y="174" class="body muted">----------------------------</text>
+  {{SYSTEM_ROWS}}
+</g>
+<g>
+<rect x="335" y="382" width="24" height="12" fill="#101010"/>
+<rect x="359" y="382" width="24" height="12" fill="#d75f5f"/>
+<rect x="383" y="382" width="24" height="12" fill="#87af5f"/>
+<rect x="407" y="382" width="24" height="12" fill="#ffaf5f"/>
+<rect x="431" y="382" width="24" height="12" fill="#5f87d7"/>
+<rect x="455" y="382" width="24" height="12" fill="#af87d7"/>
+<rect x="479" y="382" width="24" height="12" fill="#5fd7d7"/>
+<rect x="503" y="382" width="24" height="12" fill="#d0d0d0"/>
+</g>
+<g class="mono" xml:space="preserve">
+  <text x="25" y="429"><tspan class="prompt">{{SHELL_USER_HOST}}</tspan><tspan class="path">:~</tspan><tspan fill="#d9d9d9">$ </tspan><tspan fill="#dedede">ls -l ~/workspace</tspan></text>
+  <text x="25" y="454" fill="#c8c8c8" font-size="14">total 20</text>
+</g>
+<g>{{LISTING_ROWS}}</g>
+<g class="mono" xml:space="preserve">
+ <text x="25" y="638"><tspan class="prompt">{{SHELL_USER_HOST}}</tspan><tspan class="path">:~</tspan><tspan fill="#d9d9d9">$ </tspan></text>
+ <rect x="211" y="623" width="9" height="18" fill="#dedede" class="cursor"/>
+</g>
+</svg>
