@@ -6,7 +6,7 @@ from xml.etree import ElementTree as ET
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from timing import build_timeline, clip_animation
-from make_terminal import LISTING_FIRST_Y, LINE_HEIGHT, DIRECTORIES
+from make_terminal import LISTING_FIRST_Y, LINE_HEIGHT, DIRECTORIES, SYSTEM_FIELDS, build_terminal
 
 
 class TimelineTests(unittest.TestCase):
@@ -36,6 +36,14 @@ class TimelineTests(unittest.TestCase):
         prompt_y = LISTING_FIRST_Y + len(DIRECTORIES) * LINE_HEIGHT
         self.assertEqual(prompt_y - last_row, LINE_HEIGHT)
         self.assertGreater(prompt_y, LISTING_FIRST_Y)
+
+    def test_generated_profile_includes_bigbrain_without_dropping_other_projects(self):
+        values = dict(SYSTEM_FIELDS)
+        self.assertEqual(values["Projects"], "CinemaPi5 / LoRa / BigBrain")
+        svg = build_terminal()
+        self.assertIn("CinemaPi5 / LoRa / BigBrain", svg)
+        self.assertIn("ls -l ~/workspace", svg)
+        self.assertEqual(svg.count("CinemaPi5 / LoRa / BigBrain"), 1)
 
     def test_invalid_commands_rejected(self):
         for commands in ((), ("",), ("neofetch", "  ")):
