@@ -1,55 +1,66 @@
 <div align="center">
 
-<img src="./assets/terminal.svg" width="100%" alt="Animated Debian/XFCE terminal presenting the engineering profile" />
+<img src="./assets/terminal.svg" width="100%" alt="Debian XFCE terminal introducing an embedded systems engineering portfolio" />
 
 </div>
 
-<!-- GitHub wraps SVG images in links to the original files.                      -->
-<!-- Therefore, only native HTML TEXT in <summary> is used as a clickable command. -->
-<!-- Do not put <img> inside <summary>: clicking it opens the file instead.       -->
+<!-- GitHub opens SVG <img> files when clicked. Images must not be summary controls. -->
+<!-- <samp> commands below use native <details>/<summary> and work without JS. -->
 
 <details>
-<summary><code>visitor@debian:~$ ls -la ~/workspace/</code> ◂ run</summary>
+<summary><samp>visitor@debian:~$ ls -la ~/workspace/</samp></summary>
 
-<img src="./assets/out-skills.svg" width="100%" alt="List of engineering skill directories" />
+<img src="./assets/out-skills.svg" width="100%" alt="Engineering skills directory" />
 
 <details>
-<summary><code>visitor@debian:~$ cat ~/workspace/hardware/README</code> ◂ inspect</summary>
+<summary><samp>visitor@debian:~$ cat ~/workspace/hardware/README</samp></summary>
 
-<img src="./assets/out-hardware.svg" width="100%" alt="Electronics, PCB design, simulation, and testing experience" />
+<img src="./assets/out-hardware.svg" width="100%" alt="Circuit design, PCB engineering and electronics" />
 
 </details>
 
 <details>
-<summary><code>visitor@debian:~$ cat ~/workspace/embedded/README</code> ◂ inspect</summary>
+<summary><samp>visitor@debian:~$ cat ~/workspace/embedded/README</samp></summary>
 
-<img src="./assets/out-embedded.svg" width="100%" alt="Embedded Linux, microcontrollers and communication systems" />
-
-</details>
+<img src="./assets/out-embedded.svg" width="100%" alt="Embedded Linux, sensors and telemetry" />
 
 </details>
 
 <details>
-<summary><code>visitor@debian:~$ ls ~/projects/</code> ◂ run</summary>
+<summary><samp>visitor@debian:~$ cat ~/workspace/software/README</samp></summary>
 
-<img src="./assets/out-projects.svg" width="100%" alt="Engineering case studies" />
-
-<details>
-<summary><code>visitor@debian:~$ inspect ~/projects/cinemapi5</code> ◂ inspect</summary>
-
-<img src="./assets/out-camera.svg" width="100%" alt="CinemaPi5: Raspberry Pi 5 and Sony IMX283 camera" />
-
-<code>$ git remote -v</code> · [View CinemaPi5 source](https://github.com/yassinebkr/cinematepi5)
+<img src="./assets/out-software.svg" width="100%" alt="Software, networks and automation" />
 
 </details>
 
 <details>
-<summary><code>visitor@debian:~$ inspect ~/projects/lora</code> ◂ inspect</summary>
+<summary><samp>visitor@debian:~$ cat ~/workspace/fabrication/README</samp></summary>
 
-<img src="./assets/out-lora.svg" width="100%" alt="45 km validated LoRa telemetry project" />
+<img src="./assets/out-fabrication.svg" width="100%" alt="Digital fabrication and rapid prototyping" />
 
 </details>
 
 </details>
 
-<sub>Prototype: a Linux terminal drawn with SVG + native GitHub disclosure controls. The command labels are real clickable text; SVG graphics are illustrations and open their source files when clicked. No JavaScript or external hosting.</sub>
+<details>
+<summary><samp>visitor@debian:~$ ls ~/projects/</samp></summary>
+
+<img src="./assets/out-projects.svg" width="100%" alt="Engineering projects index" />
+
+<details>
+<summary><samp>visitor@debian:~$ inspect ~/projects/cinemapi5</samp></summary>
+
+<img src="./assets/out-camera.svg" width="100%" alt="Raspberry Pi 5 Sony IMX283 CinemaPi5 project" />
+
+<samp>$ git remote -v</samp> · [CinemaPi5 source](https://github.com/yassinebkr/cinematepi5)
+
+</details>
+
+<details>
+<summary><samp>visitor@debian:~$ inspect ~/projects/lora</samp></summary>
+
+<img src="./assets/out-lora.svg" width="100%" alt="45 km LoRa telemetry case study" />
+
+</details>
+
+</details>
