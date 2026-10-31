@@ -29,9 +29,10 @@ jobs:
       - uses: actions/checkout@v4
       - name: Generate and verify the profile SVG
         run: |
-          python3 -m py_compile scripts/make_terminal.py scripts/timing.py scripts/validate.py
+          python3 -m py_compile scripts/make_terminal.py scripts/make_cta.py scripts/timing.py scripts/validate.py
           python3 scripts/make_terminal.py
+          python3 scripts/make_cta.py
           python3 scripts/validate.py
           python3 -m unittest discover -s tests -v
       - name: Check reproducible output
-        run: git diff --exit-code -- assets/terminal.svg
+        run: git diff --exit-code -- assets/terminal.svg assets/shellfolio-cta-arrows-v3.svg
