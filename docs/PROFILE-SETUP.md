@@ -32,7 +32,6 @@ Replace these placeholders **everywhere** in the snippet:
 
 | Placeholder | Replace with |
 | --- | --- |
-| `YOUR_SHORT_BIO` | A brief description of your work and interests |
 | `GITHUB_USERNAME` | Your GitHub account username |
 | `GENERATOR_REPO` | The name of your public SVG generator repository |
 | `PORTFOLIO_URL` | The full URL of your portfolio or other destination, including `https://` |
@@ -40,10 +39,6 @@ Replace these placeholders **everywhere** in the snippet:
 Paste the updated snippet into the profile repository's `README.md`:
 
 ```html
-<p align="center">
-  YOUR_SHORT_BIO
-</p>
-
 <p align="center">
   <a href="PORTFOLIO_URL"><img
     src="https://raw.githubusercontent.com/GITHUB_USERNAME/GENERATOR_REPO/main/assets/terminal.svg"
@@ -64,6 +59,9 @@ Paste the updated snippet into the profile repository's `README.md`:
   <a href="https://github.com/GITHUB_USERNAME?tab=repositories">browse all projects</a>.
 </p>
 ```
+
+For a short personal introduction, use **GitHub → Edit profile → Bio**.
+The profile README template deliberately starts with the animated terminal.
 
 The SVG is an animated image and **clicking it opens your portfolio**. The
 first compact button opens the same destination; the second opens the
