@@ -6,6 +6,7 @@ from pathlib import Path
 from xml.etree import ElementTree as ET
 
 from make_terminal import ROOT, OUTPUT_PATH, build_terminal, USER, HOST, WINDOW_TITLE, DIRECTORIES
+from make_cta import build_cta, OUTPUT_PATH as CTA_OUTPUT_PATH
 
 svg = OUTPUT_PATH.read_text(encoding="utf-8")
 assert svg == build_terminal(), "Regenerate terminal.svg from its template"
@@ -51,42 +52,32 @@ assert re.search(r'(?:href|src)=["\']https?://', svg) is None, "External resourc
 readme = (ROOT / "README.md").read_text(encoding="utf-8")
 for relative in re.findall(r'src="([^"]+)"', readme):
     assert (ROOT / relative).exists(), f"Missing README asset: {relative}"
-# Both profile CTA graphics are intentionally compact, identical in size.
-for asset in ("shellfolio-button.svg", "source-button.svg"):
+# Both profile CTA graphics are compact and share the same viewBox.
+assert CTA_OUTPUT_PATH.read_text(encoding="utf-8") == build_cta(), "Regenerate CTA from scripts/make_cta.py"
+for asset in ("shellfolio-cta-arrows-v3.svg", "source-button.svg"):
     graphic = ET.parse(ROOT / "assets" / asset).getroot()
     assert graphic.attrib.get("viewBox") == "0 0 296 62", f"Misaligned CTA: {asset}"
     assert graphic.attrib.get("width") == "296", f"Inconsistent width: {asset}"
     assert graphic.attrib.get("height") == "62", f"Inconsistent height: {asset}"
-    assert len(graphic.findall("{http://www.w3.org/2000/svg}path")) >= 2, f"Missing accent or arrow in {asset}"
-    if asset == "shellfolio-button.svg":
-        labels = [node.text or "" for node in graphic.findall("{http://www.w3.org/2000/svg}text")]
-        assert "Click terminal above" in labels, "Profile CTA must point to the clickable terminal"
-        assert "OR CLICK HERE TO OPEN" in labels, "Button must retain its own call to action"
-        svg_ns = "{http://www.w3.org/2000/svg}"
-        large_arrow = graphic.find(f"{svg_ns}path[@id='terminal-up-arrow']")
-        small_arrow = graphic.find(f"{svg_ns}path[@id='button-open-arrow']")
-        assert large_arrow is not None, "Missing prominent upward terminal CTA arrow"
-        assert small_arrow is not None, "Missing inline rightward open button arrow"
-        assert "V17" in large_arrow.attrib["d"], "Large arrow should point upward"
-        assert "h14" in small_arrow.attrib["d"], "Small arrow should point right"
-        title = graphic.find("{http://www.w3.org/2000/svg}title")
-        description = graphic.find("{http://www.w3.org/2000/svg}desc")
-        assert title is not None and "Click terminal above" in (title.text or "")
-        assert description is not None and "click this button" in (description.text or "")
-# The profile uses a distinct asset path to avoid stale GitHub image proxy caches.
-# Its large upward arrow must point to the animated terminal, while the
-# smaller right arrow must immediately follow the secondary call to action.
-new_cta = ET.parse(ROOT / "assets" / "shellfolio-cta-arrows-v2.svg").getroot()
-assert new_cta.attrib.get("viewBox") == "0 0 296 62", "Profile CTA dimensions changed"
-new_labels = [node.text or "" for node in new_cta.findall(f"{svg_ns}text")]
-assert new_labels == ["Click terminal above", "OR CLICK HERE TO OPEN"], "Unexpected new CTA labels"
-up_arrow = new_cta.find(f"{svg_ns}path[@id='terminal-up-arrow']")
-right_arrow = new_cta.find(f"{svg_ns}path[@id='button-open-arrow']")
-assert up_arrow is not None and up_arrow.attrib["d"] == "M264 45V15m-11 11 11-11 11 11", "The large up arrow is missing or misplaced"
-assert up_arrow.attrib.get("stroke-width") == "3", "The upward arrow must be prominent"
-assert right_arrow is not None and right_arrow.attrib["d"] == "M158 42h16m-5-5 5 5-5 5", "The small inline arrow is missing or misplaced"
-assert right_arrow.attrib.get("stroke-width") == "1.8", "The inline arrow should be visually secondary"
-assert not any(label.startswith("↑") for label in new_labels), "Do not use a tiny text-arrow glyph"
+    assert len(graphic.findall(f"{svg_ns}path")) >= 2, f"Missing accent or arrow in {asset}"
+
+cta = ET.parse(CTA_OUTPUT_PATH).getroot()
+source = ET.parse(ROOT / "assets" / "source-button.svg").getroot()
+pink = source.findall(f"{svg_ns}path")[-1]
+up = cta.find(f"{svg_ns}path[@id='terminal-up-arrow']")
+right = cta.find(f"{svg_ns}path[@id='button-open-arrow']")
+assert up is not None and right is not None, "The two CTA arrows are required"
+assert up.attrib["d"] == pink.attrib["d"], "Up arrow must match the pink arrow geometry"
+assert up.attrib["stroke-width"] == pink.attrib["stroke-width"] == "2.3"
+assert up.attrib["transform"] == "rotate(-90 269 31)", "Main arrow must point up"
+assert up.attrib["stroke"] == "#72df91", "Main arrow should be green"
+assert right.attrib["d"] == "M158 42h14m-5-5 5 5-5 5", "Small arrow geometry changed"
+assert right.attrib.get("transform") is None, "Small arrow must point right"
+assert right.attrib["stroke-width"] == "1.7"
+assert right.attrib["stroke"] == "#e5eaf0", "Small arrow must be white"
+assert [el.text for el in cta.findall(f"{svg_ns}text")] == [
+    "Click terminal above", "OR CLICK HERE TO OPEN"
+], "Unexpected button captions"
 
 assert "ShellFolio/?run=launch" in readme, "The public site must run its virtual launcher"
 
