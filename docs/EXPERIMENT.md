@@ -1,35 +1,43 @@
-# Engineering OS / GitHub README experiment
+# Engineering OS — single SVG prototype
 
-## GitHub interaction
+## Design goal
 
-The terminal is composed from adjacent SVG assets. Each `entry-*.svg` is
-wrapped in a native HTML `<a href="#section">` element, creating a full-row
-click target. Internal heading anchors keep navigation within the README.
+The README presents a coherent Debian XFCE terminal scene. Its system summary,
+animated command and long-format directory listing share one SVG viewBox,
+a fixed monospace grid and a consistent palette.
 
-The interface uses a simulated `ls -l ~/workspace` listing with representative
-Unix permission, ownership, size, and timestamp fields. The repository's
-engineering domains are the actual destinations of each directory link.
+## Building the asset
 
-## Design
+```bash
+python3 scripts/make_terminal.py
+python3 scripts/validate.py
+```
 
-- Debian 13 / XFCE terminal aesthetics
-- CSS cursor and SMIL typewriter effects
-- Long-format directory entries, visually continuous with the terminal
-- Native GitHub Markdown anchor navigation
-- Dedicated project and competency sections
+The generator uses only the Python standard library. Comments and docstrings
+explain the rendering coordinates, animation methods and editable content.
 
-## Manual GitHub verification
+## GitHub rendering
 
-1. Open this branch's rendered README.
-2. Check the prompt `ls -l ~/workspace` and its directory entries.
-3. Click an entire directory line such as `hardware/`.
-4. Confirm navigation to the matching section on the same page.
-5. Use `Return to workspace` to navigate to the top of the terminal.
-6. Review image seam spacing, responsiveness and keyboard navigation.
+GitHub presents the SVG as an embedded image, including SMIL and CSS animation.
+The embedded image displays a complete terminal illustration. Additional
+technical content can be introduced through explicitly designed profile
+sections as the project develops.
 
-## Known behavior
+## Engineering constraints
 
-SVG illustrations can open their source assets when GitHub automatically wraps
-them in links. Directory images carry explicit internal links to select the
-matching section. The separate sections present predefined engineering
-information. Each section may be navigated through native Markdown anchors.
+GitHub Markdown supports navigation links and native disclosure elements.
+Each mechanism follows GitHub's own UI presentation. The terminal SVG is a
+self-contained illustration; its animated appearance serves as the profile's
+main experience.
+
+The directory listing's file metadata is illustrative and represents a
+fictional Linux workspace. Project claims reflect the documented engineering
+experiments, including the validated 45 km LoRa field test.
+
+## Manual review
+
+1. Open the branch's GitHub README preview.
+2. Confirm the XFCE chrome and Debian swirl remain visually cohesive.
+3. Check the command `ls -l ~/workspace` and its five aligned entries.
+4. Verify the cursor animation and introductory command reveal.
+5. Inspect both narrow and desktop browser widths.
