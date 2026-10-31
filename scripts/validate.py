@@ -12,9 +12,9 @@ assert len(svg_files) >= 13, f"Only {len(svg_files)} SVG assets found"
 for p in svg_files:
     src = p.read_text(encoding="utf-8")
     ET.fromstring(src)
-    assert "<script" not in src and "<foreignObject" not in src, p
-    # The SVG namespace URI is required; external resources are not.
-    assert not re.search(r'(?:href|src)=["\']https?://', src), p
+    assert src.count("<script") == 0 and src.count("<foreignObject") == 0, p
+    # SVG XML requires its namespace URI; embedded resource references stay local.
+    assert re.search(r'(?:href|src)=["\']https?://', src) is None, p
 for relative in re.findall(r'src="([^"]+)"', readme):
     assert (ROOT / relative).is_file(), f"Missing image: {relative}"
 assert readme.count("<details>") == readme.count("</details>")
