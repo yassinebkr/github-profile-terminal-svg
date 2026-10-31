@@ -21,6 +21,21 @@ svg_ns = "{http://www.w3.org/2000/svg}"
 type_clip = root.find(f".//{svg_ns}clipPath[@id='typeNeofetch']/{svg_ns}rect/{svg_ns}animate")
 assert type_clip is not None, "SMIL typing animation missing"
 assert float(type_clip.attrib["values"].split(";")[-1]) >= 76, "Last typed character gets clipped"
+workspace_clip = root.find(f".//{svg_ns}clipPath[@id='typeWorkspace']/{svg_ns}rect/{svg_ns}animate")
+assert workspace_clip is not None, "Missing animated workspace command"
+for label, animation, command in (
+    ("neofetch", type_clip, "neofetch"),
+    ("workspace", workspace_clip, "ls -l ~/workspace"),
+):
+    widths = [float(part) for part in animation.attrib["values"].split(";")]
+    assert len(widths) == len(command) + 1, f"Invalid character count: {label}"
+    assert widths == sorted(widths), f"Reversed animation: {label}"
+    assert widths[-1] >= len(command) * 9.03, f"Truncated command: {label}"
+    assert animation.attrib["fill"] == "freeze", f"Animation must retain final state: {label}"
+for stage in ("show-profile", "show-list-prompt", "show-list-output", "show-final-prompt"):
+    assert f'class="{stage}' in svg, f"Missing timed stage: {stage}"
+assert "prefers-reduced-motion:reduce" in svg, "Reduced-motion style missing"
+
 # The icon is constructed from vector geometry for consistent GitHub scaling.
 icon_group = [group for group in root.findall(f".//{svg_ns}g") if group.attrib.get("aria-label") == "XFCE terminal application icon"]
 assert len(icon_group) == 1, "XFCE terminal application icon missing"

@@ -10,8 +10,14 @@
   .key {fill:#d90d50;font-weight:700}.directory {fill:#8c94ff;font-weight:700}
   .permissions {fill:#c3c3c3}
   @keyframes blink {0%,49%{opacity:1}50%,100%{opacity:0}}
+  @keyframes reveal {from {opacity:0} to {opacity:1}}
   .cursor {animation:blink 1.12s steps(1,end) infinite}
-  @media (prefers-reduced-motion:reduce) {.cursor {animation:none}}
+  .show-profile{opacity:0;animation:reveal .01s steps(1,end) 0.961s 1 forwards}.show-list-prompt{opacity:0;animation:reveal .01s steps(1,end) 1.026s 1 forwards}.show-list-output{opacity:0;animation:reveal .01s steps(1,end) 2.166s 1 forwards}.show-final-prompt{opacity:0;animation:reveal .01s steps(1,end) 2.261s 1 forwards}
+  @media (prefers-reduced-motion:reduce) {
+    .cursor {animation:none}
+    .show-profile,.show-list-prompt,.show-list-output,.show-final-prompt {opacity:1;animation:none}
+    .typing-clip {width:999px!important}
+  }
 </style>
 <rect x="0.5" y="0.5" width="919" height="667" rx="5" fill="#050505" stroke="#575757"/>
 <path d="M5 1H915Q919 1 919 5V36H1V5Q1 1 5 1Z" fill="#353535"/>
@@ -34,13 +40,14 @@
   <!-- Character cells use a 15px monospace face. Final clip width clears the entire last glyph. -->
   <defs>
     <clipPath id="typeNeofetch">
-      <rect x="187.54" y="78" width="0" height="27">
-        <animate attributeName="width" values="0;9.1;18.2;27.3;36.4;45.5;54.6;63.7;79" keyTimes="0;0.125;0.25;0.375;0.5;0.625;0.75;0.875;1" begin="0.3s" dur="1.06s" calcMode="discrete" fill="freeze"/>
+      <rect x="187.54" y="78" width="0" height="27" class="typing-clip">
+        <animate attributeName="width" values="0.00;10.03;19.06;28.09;37.12;46.15;55.18;64.21;81.24" keyTimes="0.00000;0.12500;0.25000;0.37500;0.50000;0.62500;0.75000;0.87500;1.00000" begin="0.300s" dur="0.496s" calcMode="discrete" fill="freeze"/>
       </rect>
     </clipPath>
   </defs>
   <text x="187.54" y="98" fill="#dedede" clip-path="url(#typeNeofetch)">neofetch</text>
 </g>
+<g class="show-profile">
 <g transform="translate(53 142) scale(8.85)" fill="#d70751"><path d="M13.88 12.685c-.4 0 .08.2.601.28.14-.1.27-.22.39-.33a3.001 3.001 0 01-.99.05m2.14-.53c.23-.33.4-.69.47-1.06-.06.27-.2.5-.33.73-.75.47-.07-.27 0-.56-.8 1.01-.11.6-.14.89m.781-2.05c.05-.721-.14-.501-.2-.221.07.04.13.5.2.22M12.38.31c.2.04.45.07.42.12.23-.05.28-.1-.43-.12m.43.12l-.15.03.14-.01V.43m6.633 9.944c.02.64-.2.95-.38 1.5l-.35.181c-.28.54.03.35-.17.78-.44.39-1.34 1.22-1.62 1.301-.201 0 .14-.25.19-.34-.591.4-.481.6-1.371.85l-.03-.06c-2.221 1.04-5.303-1.02-5.253-3.842-.03.17-.07.13-.12.2a3.551 3.552 0 012.001-3.501 3.361 3.362 0 013.732.48 3.341 3.342 0 00-2.721-1.3c-1.18.01-2.281.76-2.651 1.57-.6.38-.67 1.47-.93 1.661-.361 2.601.66 3.722 2.38 5.042.27.19.08.21.12.35a4.702 4.702 0 01-1.53-1.16c.23.33.47.66.8.91-.55-.18-1.27-1.3-1.48-1.35.93 1.66 3.78 2.921 5.261 2.3a6.203 6.203 0 01-2.33-.28c-.33-.16-.77-.51-.7-.57a5.802 5.803 0 005.902-.84c.44-.35.93-.94 1.07-.95-.2.32.04.16-.12.44.44-.72-.2-.3.46-1.24l.24.33c-.09-.6.74-1.321.66-2.262.19-.3.2.3 0 .97.29-.74.08-.85.15-1.46.08.2.18.42.23.63-.18-.7.2-1.2.28-1.6-.09-.05-.28.3-.32-.53 0-.37.1-.2.14-.28-.08-.05-.26-.32-.38-.861.08-.13.22.33.34.34-.08-.42-.2-.75-.2-1.08-.34-.68-.12.1-.4-.3-.34-1.091.3-.25.34-.74.54.77.84 1.96.981 2.46-.1-.6-.28-1.2-.49-1.76.16.07-.26-1.241.21-.37A7.823 7.824 0 0017.702 1.6c.18.17.42.39.33.42-.75-.45-.62-.48-.73-.67-.61-.25-.65.02-1.06 0C15.082.73 14.862.8 13.8.4l.05.23c-.77-.25-.9.1-1.73 0-.05-.04.27-.14.53-.18-.741.1-.701-.14-1.431.03.17-.13.36-.21.55-.32-.6.04-1.44.35-1.18.07C9.6.68 7.847 1.3 6.867 2.22L6.838 2c-.45.54-1.96 1.611-2.08 2.311l-.131.03c-.23.4-.38.85-.57 1.261-.3.52-.45.2-.4.28-.6 1.22-.9 2.251-1.16 3.102.18.27 0 1.65.07 2.76-.3 5.463 3.84 10.776 8.363 12.006.67.23 1.65.23 2.49.25-.99-.28-1.12-.15-2.08-.49-.7-.32-.85-.7-1.34-1.13l.2.35c-.971-.34-.57-.42-1.361-.67l.21-.27c-.31-.03-.83-.53-.97-.81l-.34.01c-.41-.501-.63-.871-.61-1.161l-.111.2c-.13-.21-1.52-1.901-.8-1.511-.13-.12-.31-.2-.5-.55l.14-.17c-.35-.44-.64-1.02-.62-1.2.2.24.32.3.45.33-.88-2.172-.93-.12-1.601-2.202l.15-.02c-.1-.16-.18-.34-.26-.51l.06-.6c-.63-.74-.18-3.102-.09-4.402.07-.54.53-1.1.88-1.981l-.21-.04c.4-.71 2.341-2.872 3.241-2.761.43-.55-.09 0-.18-.14.96-.991 1.26-.7 1.901-.88.7-.401-.6.16-.27-.151 1.2-.3.85-.7 2.421-.85.16.1-.39.14-.52.26 1-.49 3.151-.37 4.562.27 1.63.77 3.461 3.011 3.531 5.132l.08.02c-.04.85.13 1.821-.17 2.711l.2-.42M9.54 13.236l-.05.28c.26.35.47.73.8 1.01-.24-.47-.42-.66-.75-1.3m.62-.02c-.14-.15-.22-.34-.31-.52.08.32.26.6.43.88l-.12-.36m10.945-2.382l-.07.15c-.1.76-.34 1.511-.69 2.212.4-.73.65-1.541.75-2.362M12.45.12c.27-.1.66-.05.95-.12-.37.03-.74.05-1.1.1l.15.02M3.006 5.142c.07.57-.43.8.11.42.3-.66-.11-.18-.1-.42m-.64 2.661c.12-.39.15-.62.2-.84-.35.44-.17.53-.2.83"/></g>
 <g xml:space="preserve">
   <text x="335" y="152" class="body" style="fill:#d90d50;font-weight:700">yassine@debian</text>
@@ -63,16 +70,27 @@
 <rect x="479" y="382" width="24" height="12" fill="#5fd7d7"/>
 <rect x="503" y="382" width="24" height="12" fill="#d0d0d0"/>
 </g>
-<g class="mono" xml:space="preserve">
-  <text x="25" y="429"><tspan class="prompt">yassine@debian</tspan><tspan class="path">:~</tspan><tspan fill="#d9d9d9">$ </tspan><tspan fill="#dedede">ls -l ~/workspace</tspan></text>
-  <text x="25" y="454" fill="#c8c8c8" font-size="14">total 20</text>
 </g>
-<g><text x="25" y="476" class="listing" xml:space="preserve"><tspan class="permissions">drwxr-xr-x  2 yassine  yassine  4096 Sep 21  </tspan><tspan class="directory">hardware/</tspan></text>
+<g class="show-list-prompt mono" xml:space="preserve">
+  <text x="25" y="429"><tspan class="prompt">yassine@debian</tspan><tspan class="path">:~</tspan><tspan fill="#d9d9d9">$ </tspan></text>
+  <defs>
+    <clipPath id="typeWorkspace">
+      <rect x="187.54" y="409" width="0" height="27" class="typing-clip">
+        <animate attributeName="width" values="0.00;10.03;19.06;28.09;37.12;46.15;55.18;64.21;73.24;82.27;91.30;100.33;109.36;118.39;127.42;136.45;145.48;162.51" keyTimes="0.00000;0.05882;0.11765;0.17647;0.23529;0.29412;0.35294;0.41176;0.47059;0.52941;0.58824;0.64706;0.70588;0.76471;0.82353;0.88235;0.94118;1.00000" begin="1.191s" dur="0.850s" calcMode="discrete" fill="freeze"/>
+      </rect>
+    </clipPath>
+  </defs>
+  <text x="187.54" y="429" fill="#dedede" clip-path="url(#typeWorkspace)">ls -l ~/workspace</text>
+</g>
+<g class="show-list-output">
+  <text x="25" y="454" class="mono" fill="#c8c8c8" font-size="14">total 20</text>
+  <g><text x="25" y="476" class="listing" xml:space="preserve"><tspan class="permissions">drwxr-xr-x  2 yassine  yassine  4096 Sep 21  </tspan><tspan class="directory">hardware/</tspan></text>
   <text x="25" y="500" class="listing" xml:space="preserve"><tspan class="permissions">drwxr-xr-x  2 yassine  yassine  4096 Oct 19  </tspan><tspan class="directory">embedded/</tspan></text>
   <text x="25" y="524" class="listing" xml:space="preserve"><tspan class="permissions">drwxr-xr-x  2 yassine  yassine  4096 Oct 22  </tspan><tspan class="directory">software/</tspan></text>
   <text x="25" y="548" class="listing" xml:space="preserve"><tspan class="permissions">drwxr-xr-x  2 yassine  yassine  4096 Oct 24  </tspan><tspan class="directory">fabrication/</tspan></text>
   <text x="25" y="572" class="listing" xml:space="preserve"><tspan class="permissions">drwxr-xr-x  2 yassine  yassine  4096 Oct 29  </tspan><tspan class="directory">projects/</tspan></text></g>
-<g class="mono" xml:space="preserve">
+</g>
+<g class="show-final-prompt mono" xml:space="preserve">
  <text x="25" y="638"><tspan class="prompt">yassine@debian</tspan><tspan class="path">:~</tspan><tspan fill="#d9d9d9">$ </tspan></text>
  <rect x="187.54" y="623" width="9" height="18" fill="#dedede" class="cursor"/>
 </g>

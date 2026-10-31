@@ -1,4 +1,4 @@
-name: Validate animated profile SVG
+name: Validate animated profile terminal
 
 on:
   push:
@@ -7,12 +7,16 @@ on:
       - 'README.md'
       - 'assets/**'
       - 'scripts/**'
+      - 'tests/**'
+      - 'docs/**'
       - '.github/workflows/validate.yml'
   pull_request:
     paths:
       - 'README.md'
       - 'assets/**'
       - 'scripts/**'
+      - 'tests/**'
+      - 'docs/**'
       - '.github/workflows/validate.yml'
 
 permissions:
@@ -23,10 +27,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Generate and validate profile art
+      - name: Generate and verify the profile SVG
         run: |
-          python3 -m py_compile scripts/make_terminal.py scripts/validate.py
+          python3 -m py_compile scripts/make_terminal.py scripts/timing.py scripts/validate.py
           python3 scripts/make_terminal.py
           python3 scripts/validate.py
-      - name: Confirm reproducible output
+          python3 -m unittest discover -s tests -v
+      - name: Check reproducible output
         run: git diff --exit-code -- assets/terminal.svg

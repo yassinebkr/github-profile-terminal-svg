@@ -20,6 +20,7 @@ from __future__ import annotations
 from html import escape
 from pathlib import Path
 from xml.etree import ElementTree as ET
+from timing import build_timeline, clip_animation, reveal_css
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "assets"
@@ -46,6 +47,8 @@ SYSTEM_FIELDS: tuple[tuple[str, str], ...] = (
 
 # Permissions, owners and dates model an illustrative GNU/Linux workspace.
 # Each entry follows the familiar column layout of the GNU coreutils ls tool.
+COMMANDS = ("neofetch", "ls -l ~/workspace")
+
 DIRECTORIES: tuple[tuple[str, str], ...] = (
     ("Sep 21", "hardware/"),
     ("Oct 19", "embedded/"),
@@ -101,7 +104,21 @@ def render_listing_rows() -> str:
 def build_terminal() -> str:
     """Combine the template, profile fields and Debian vector geometry."""
     result = TEMPLATE_PATH.read_text(encoding="utf-8")
+    first, second = build_timeline(COMMANDS).cues
+    animation_css = "".join((
+        reveal_css("show-profile", first.result_at_ms),
+        reveal_css("show-list-prompt", second.prompt_at_ms),
+        reveal_css("show-list-output", second.result_at_ms),
+        reveal_css("show-final-prompt", second.result_at_ms + 95),
+    ))
     replacements = {
+        "{{ANIMATION_CSS}}": animation_css,
+        "{{TYPE_NEOFETCH}}": clip_animation(
+            first.command, first.typing_at_ms, first.typing_done_ms
+        ),
+        "{{TYPE_WORKSPACE}}": clip_animation(
+            second.command, second.typing_at_ms, second.typing_done_ms
+        ),
         "{{WINDOW_TITLE}}": escape(WINDOW_TITLE, quote=True),
         "{{INPUT_X}}": f"{25 + len(f'{USER}@{HOST}:~$ ') * 9.03:.2f}",
         "{{SHELL_USER_HOST}}": escape(f"{USER}@{HOST}", quote=True),

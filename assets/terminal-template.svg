@@ -10,8 +10,14 @@
   .key {fill:#d90d50;font-weight:700}.directory {fill:#8c94ff;font-weight:700}
   .permissions {fill:#c3c3c3}
   @keyframes blink {0%,49%{opacity:1}50%,100%{opacity:0}}
+  @keyframes reveal {from {opacity:0} to {opacity:1}}
   .cursor {animation:blink 1.12s steps(1,end) infinite}
-  @media (prefers-reduced-motion:reduce) {.cursor {animation:none}}
+  {{ANIMATION_CSS}}
+  @media (prefers-reduced-motion:reduce) {
+    .cursor {animation:none}
+    .show-profile,.show-list-prompt,.show-list-output,.show-final-prompt {opacity:1;animation:none}
+    .typing-clip {width:999px!important}
+  }
 </style>
 <rect x="0.5" y="0.5" width="919" height="667" rx="5" fill="#050505" stroke="#575757"/>
 <path d="M5 1H915Q919 1 919 5V36H1V5Q1 1 5 1Z" fill="#353535"/>
@@ -34,13 +40,14 @@
   <!-- Character cells use a 15px monospace face. Final clip width clears the entire last glyph. -->
   <defs>
     <clipPath id="typeNeofetch">
-      <rect x="{{INPUT_X}}" y="78" width="0" height="27">
-        <animate attributeName="width" values="0;9.1;18.2;27.3;36.4;45.5;54.6;63.7;79" keyTimes="0;0.125;0.25;0.375;0.5;0.625;0.75;0.875;1" begin="0.3s" dur="1.06s" calcMode="discrete" fill="freeze"/>
+      <rect x="{{INPUT_X}}" y="78" width="0" height="27" class="typing-clip">
+        {{TYPE_NEOFETCH}}
       </rect>
     </clipPath>
   </defs>
   <text x="{{INPUT_X}}" y="98" fill="#dedede" clip-path="url(#typeNeofetch)">neofetch</text>
 </g>
+<g class="show-profile">
 <g transform="translate(53 142) scale(8.85)" fill="#d70751"><path d="{{DEBIAN_PATH}}"/></g>
 <g xml:space="preserve">
   <text x="335" y="152" class="body" style="fill:#d90d50;font-weight:700">{{SHELL_USER_HOST}}</text>
@@ -57,12 +64,23 @@
 <rect x="479" y="382" width="24" height="12" fill="#5fd7d7"/>
 <rect x="503" y="382" width="24" height="12" fill="#d0d0d0"/>
 </g>
-<g class="mono" xml:space="preserve">
-  <text x="25" y="429"><tspan class="prompt">{{SHELL_USER_HOST}}</tspan><tspan class="path">:~</tspan><tspan fill="#d9d9d9">$ </tspan><tspan fill="#dedede">ls -l ~/workspace</tspan></text>
-  <text x="25" y="454" fill="#c8c8c8" font-size="14">total 20</text>
 </g>
-<g>{{LISTING_ROWS}}</g>
-<g class="mono" xml:space="preserve">
+<g class="show-list-prompt mono" xml:space="preserve">
+  <text x="25" y="429"><tspan class="prompt">{{SHELL_USER_HOST}}</tspan><tspan class="path">:~</tspan><tspan fill="#d9d9d9">$ </tspan></text>
+  <defs>
+    <clipPath id="typeWorkspace">
+      <rect x="{{INPUT_X}}" y="409" width="0" height="27" class="typing-clip">
+        {{TYPE_WORKSPACE}}
+      </rect>
+    </clipPath>
+  </defs>
+  <text x="{{INPUT_X}}" y="429" fill="#dedede" clip-path="url(#typeWorkspace)">ls -l ~/workspace</text>
+</g>
+<g class="show-list-output">
+  <text x="25" y="454" class="mono" fill="#c8c8c8" font-size="14">total 20</text>
+  <g>{{LISTING_ROWS}}</g>
+</g>
+<g class="show-final-prompt mono" xml:space="preserve">
  <text x="25" y="638"><tspan class="prompt">{{SHELL_USER_HOST}}</tspan><tspan class="path">:~</tspan><tspan fill="#d9d9d9">$ </tspan></text>
  <rect x="{{INPUT_X}}" y="623" width="9" height="18" fill="#dedede" class="cursor"/>
 </g>
