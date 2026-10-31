@@ -14,13 +14,12 @@ What this program does
 
 Interaction model
 -----------------
-* SVG assets present a visual simulation of a Debian shell session.
-* GitHub renders SVG images with links to their underlying asset files.
-* Native HTML <details>/<summary> controls implement README exploration.
+* SVG fragments compose a continuous Debian terminal scene.
+* Each directory entry is wrapped in an HTML link to a README section.
+* GitHub section links provide direct navigation between technical domains.
+* The entire experience remains inside the GitHub README.
 
-README interactions use HTML <details>/<summary> with text labels.
-GitHub wraps embedded SVGs with links to the image files, so the clickable
-disclosure commands use text labels for reliable expansion.
+The Unix listing metadata represents a fictional profile workspace.
 
 Usage (from the repository root):
     python3 scripts/make_terminal.py
@@ -178,6 +177,9 @@ COLORS["warn"] = COLORS["yellow"]
 
 WIDTH = 900
 
+# Keys shared by directory image assets and README section anchors.
+DIRECTORIES = ('hardware', 'embedded', 'software', 'fabrication', 'projects')
+
 # --- SVG building blocks ----------------------------------------------------
 # XML escaping matters here. A user's project description may contain "&" or
 # "<", which would otherwise produce malformed SVG or unexpected markup.
@@ -296,15 +298,12 @@ def render_home() -> str:
 
     svg += text_at(25, 408, PROMPT, COLORS["green"])
     svg += text_at(160, 408, ":~$", COLORS["blue"])
-    svg += text_at(207, 408, "ls ~/workspace")
-    svg += text_at(
-        25, 437, "hardware/ embedded/ software/ fabrication/ projects/",
-        COLORS["blue"], size=14,
-    )
+    svg += text_at(207, 408, "ls -l ~/workspace")
+    svg += text_at(25, 437, "total 20", COLORS["muted"], size=14)
     # GitHub displays native <summary> controls immediately beneath this
     # image. The clickable README commands follow immediately below,
     # maintaining a continuous shell-style reading flow.
-    return document(457, svg)
+    return document(457, svg, framed=False)
 
 
 # --- Command and output graphics -------------------------------------------
@@ -341,11 +340,43 @@ def render_output(name: str, lines: list[str | tuple[str, str]]) -> str:
     return document(height, svg, framed=False)
 
 
+def render_directory(name: str) -> str:
+    """Render one long-listing row for navigation within the GitHub README.
+
+    The containing HTML link handles navigation; this SVG supplies the
+    terminal's visual appearance. The owner and timestamp are representative
+    values belonging to the simulated engineering filesystem.
+    """
+    if name not in DIRECTORIES:
+        raise ValueError(f"Unknown engineering directory: {name}")
+    prefix = "drwxr-xr-x  2 yassine dev  4096 Oct 31 "
+    svg = text_at(25, 24, prefix, COLORS["muted"], size=14)
+    svg += text_at(25 + len(prefix) * 8.4, 24, name + "/",
+                   COLORS["blue"], size=14)
+    svg += text_at(780, 24, "[ open ]", COLORS["green"], size=12)
+    return document(31, svg, framed=False)
+
+
+def render_footer() -> str:
+    """Finish the navigable directory listing with a blinking prompt."""
+    svg = text_at(25, 27, "visitor@debian", COLORS["green"])
+    svg += text_at(160, 27, ":~$", COLORS["blue"])
+    svg += text_at(207, 27, "# select a directory above",
+                   COLORS["muted"], size=14)
+    svg += rectangle(422, 12, 8, 17, COLORS["green"], 'class="cursor"')
+    return document(49, svg, framed=False)
+
+
 def main() -> None:
     """Build, XML-validate and save all files in a deterministic order."""
     ASSETS.mkdir(parents=True, exist_ok=True)
 
-    images: dict[str, str] = {"terminal.svg": render_home()}
+    images: dict[str, str] = {
+        "terminal.svg": render_home(),
+        "terminal-footer.svg": render_footer(),
+    }
+    for name in DIRECTORIES:
+        images[f"entry-{name}.svg"] = render_directory(name)
     for name, (command, lines) in PANELS.items():
         images[f"cmd-{name}.svg"] = render_command(command)
         images[f"out-{name}.svg"] = render_output(name, lines)
