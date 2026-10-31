@@ -12,14 +12,14 @@ What this program does
 * Produce SVG representations of system directories and project case studies.
 * Keep every generated image deterministic and free of external dependencies.
 
-Interaction model
------------------
-* SVG fragments compose a continuous Debian terminal scene.
-* Each directory entry is wrapped in an HTML link to a README section.
-* GitHub section links provide direct navigation between technical domains.
-* The entire experience remains inside the GitHub README.
+Presentation model
+------------------
+* One SVG image contains the entire terminal session and Unix listing.
+* A uniform monospace grid preserves continuous alignment and spacing.
+* SMIL and CSS provide the command reveal and shell cursor animations.
+* The README embeds the generated SVG as one visual component.
 
-The Unix listing metadata represents a fictional profile workspace.
+Directory ownership and timestamps represent a simulated profile workspace.
 
 Usage (from the repository root):
     python3 scripts/make_terminal.py
@@ -239,12 +239,17 @@ def document(height: int, contents: str, *, framed: bool = True) -> str:
 # --- Terminal window and animated home screen -------------------------------
 
 def render_home() -> str:
-    """Produce the XFCE terminal intro; native README commands continue below."""
+    """Build one continuous Debian XFCE terminal scene.
+
+    The terminal is a single self-contained SVG asset. Every line shares the
+    same font grid, palette, image coordinate system and outer window frame.
+    A realistic Unix long listing follows the neofetch-style profile summary.
+    """
     svg = rectangle(1, 1, 898, 34, COLORS["bar"], 'rx="8"')
     svg += rectangle(1, 29, 898, 7, COLORS["bar"])
     svg += rectangle(1, 35, 898, 26, COLORS["menu"])
 
-    # Place XFCE-style window controls on the right-hand side.
+    # Use the standard XFCE-style right-hand window management controls.
     svg += text_at(16, 23, "▣", COLORS["green"], weight=700)
     svg += text_at(40, 23, f"{PROMPT}: ~ — {WINDOW_TITLE}", size=13)
     for x, symbol in [(813, "─"), (846, "□"), (875, "×")]:
@@ -255,9 +260,8 @@ def render_home() -> str:
     svg += text_at(25, 95, PROMPT, COLORS["green"])
     svg += text_at(160, 95, ":~$", COLORS["blue"])
 
-    # The command already exists in the SVG. SMIL progressively widens a
-    # clipping rectangle so the text looks as though someone is typing it.
-    # SVG controls the visual typing sequence directly through its timeline.
+    # SMIL animates a clipping mask to reveal the pre-rendered command.
+    # The same image animates directly in supporting Markdown viewers.
     svg += (
         '<defs><clipPath id="typing">'
         '<rect x="207" y="74" width="203" height="26">'
@@ -270,8 +274,7 @@ def render_home() -> str:
     svg += text_at(207, 95, "neofetch --engineer")
     svg += "</g>"
 
-    # Original minimalist Debian-inspired mark, drawn with vector paths.
-    # Vector paths form the Debian-inspired symbol at every display scale.
+    # The Debian-inspired spiral is drawn from resolution-independent paths.
     svg += (
         f'<g transform="translate(58 138)" stroke="{COLORS["pink"]}" '
         'stroke-width="9" stroke-linecap="round" fill="none">'
@@ -283,27 +286,39 @@ def render_home() -> str:
     )
     svg += text_at(63, 324, "DEBIAN 13", COLORS["pink"], size=20, weight=700)
 
-    # Neofetch-style system properties. Every row starts at a fixed x/y.
+    # Position system properties on the same fixed-height terminal grid.
     for index, (line, palette) in enumerate(SYSTEM_LINES):
         svg += text_at(293, 142 + 24 * index, line,
                        COLORS[palette], size=14,
                        weight=700 if index == 0 else 400)
 
-    # The familiar terminal palette is built from eight SVG rectangles.
-    swatches = ["pink", "yellow", "green", "cyan", "blue"]
-    for index, color in enumerate(swatches):
+    palette = ["pink", "yellow", "green", "cyan", "blue"]
+    for index, color in enumerate(palette):
         svg += rectangle(293 + 34 * index, 363, 33, 13, COLORS[color])
     for index, color in enumerate(["#b4a7ee", "#d7dce4", "#7e8997"], 5):
         svg += rectangle(293 + 34 * index, 363, 33, 13, color)
 
+    # The long-format listing uses the usual Unix columns:
+    # permission bits, hard-link count, owner, group, size, date, filename.
+    # These representative values describe a simulated engineering workspace.
     svg += text_at(25, 408, PROMPT, COLORS["green"])
     svg += text_at(160, 408, ":~$", COLORS["blue"])
     svg += text_at(207, 408, "ls -l ~/workspace")
-    svg += text_at(25, 437, "total 20", COLORS["muted"], size=14)
-    # GitHub displays native <summary> controls immediately beneath this
-    # image. The clickable README commands follow immediately below,
-    # maintaining a continuous shell-style reading flow.
-    return document(457, svg, framed=False)
+    svg += text_at(25, 440, "total 20", COLORS["muted"], size=14)
+
+    prefix = "drwxr-xr-x  2 yassine yassine 4096 Oct 31 "
+    filename_x = 25 + len(prefix) * 8.4
+    for index, directory in enumerate(DIRECTORIES):
+        baseline = 470 + index * 25
+        svg += text_at(25, baseline, prefix, COLORS["muted"], size=14)
+        svg += text_at(filename_x, baseline, directory + "/",
+                       COLORS["blue"], size=14)
+
+    # Finish the session inside the same canvas and keep the cursor animated.
+    svg += text_at(25, 632, "visitor@debian", COLORS["green"])
+    svg += text_at(160, 632, ":~$", COLORS["blue"])
+    svg += rectangle(207, 617, 9, 17, COLORS["green"], 'class="cursor"')
+    return document(653, svg)
 
 
 # --- Command and output graphics -------------------------------------------
@@ -340,43 +355,13 @@ def render_output(name: str, lines: list[str | tuple[str, str]]) -> str:
     return document(height, svg, framed=False)
 
 
-def render_directory(name: str) -> str:
-    """Render one long-listing row for navigation within the GitHub README.
-
-    The containing HTML link handles navigation; this SVG supplies the
-    terminal's visual appearance. The owner and timestamp are representative
-    values belonging to the simulated engineering filesystem.
-    """
-    if name not in DIRECTORIES:
-        raise ValueError(f"Unknown engineering directory: {name}")
-    prefix = "drwxr-xr-x  2 yassine dev  4096 Oct 31 "
-    svg = text_at(25, 24, prefix, COLORS["muted"], size=14)
-    svg += text_at(25 + len(prefix) * 8.4, 24, name + "/",
-                   COLORS["blue"], size=14)
-    svg += text_at(780, 24, "[ open ]", COLORS["green"], size=12)
-    return document(31, svg, framed=False)
-
-
-def render_footer() -> str:
-    """Finish the navigable directory listing with a blinking prompt."""
-    svg = text_at(25, 27, "visitor@debian", COLORS["green"])
-    svg += text_at(160, 27, ":~$", COLORS["blue"])
-    svg += text_at(207, 27, "# select a directory above",
-                   COLORS["muted"], size=14)
-    svg += rectangle(422, 12, 8, 17, COLORS["green"], 'class="cursor"')
-    return document(49, svg, framed=False)
 
 
 def main() -> None:
     """Build, XML-validate and save all files in a deterministic order."""
     ASSETS.mkdir(parents=True, exist_ok=True)
 
-    images: dict[str, str] = {
-        "terminal.svg": render_home(),
-        "terminal-footer.svg": render_footer(),
-    }
-    for name in DIRECTORIES:
-        images[f"entry-{name}.svg"] = render_directory(name)
+    images: dict[str, str] = {"terminal.svg": render_home()}
     for name, (command, lines) in PANELS.items():
         images[f"cmd-{name}.svg"] = render_command(command)
         images[f"out-{name}.svg"] = render_output(name, lines)
