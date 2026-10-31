@@ -4,8 +4,8 @@
 
 </div>
 
-<!-- GitHub opens SVG <img> files when clicked. Images must not be summary controls. -->
-<!-- <samp> commands below use native <details>/<summary> and work without JS. -->
+<!-- GitHub opens SVG <img> files when clicked. Native text summaries provide command controls. -->
+<!-- Native <details>/<summary> and <samp> labels provide accessible command controls. -->
 
 <details>
 <summary><samp>visitor@debian:~$ ls -la ~/workspace/</samp></summary>
