@@ -59,4 +59,20 @@ for asset in ("shellfolio-button.svg", "source-button.svg"):
     assert graphic.attrib.get("height") == "62", f"Inconsistent height: {asset}"
     assert len(graphic.findall("{http://www.w3.org/2000/svg}path")) >= 2, f"Missing accent or arrow in {asset}"
 assert "ShellFolio/?run=launch" in readme, "The public site must run its virtual launcher"
+
+# The reusable profile snippet must link the animated illustration itself.
+setup = (ROOT / "docs" / "PROFILE-SETUP.md").read_text(encoding="utf-8")
+assert (
+    '<a href="PORTFOLIO_URL"><img\n'
+    '    src="https://raw.githubusercontent.com/GITHUB_USERNAME/GENERATOR_REPO/main/assets/terminal.svg"'
+) in setup, "Profile SVG must be clickable"
+for required in (
+    "GITHUB_USERNAME",
+    "GENERATOR_REPO",
+    "PORTFOLIO_URL",
+    "assets/shellfolio-button.svg",
+    "assets/source-button.svg",
+):
+    assert required in setup, f"Missing template placeholder or button: {required}"
+
 print("validated vector logo, GTK chrome, Unix listing, aligned links, and README")
