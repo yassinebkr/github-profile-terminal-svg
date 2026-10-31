@@ -27,3 +27,5 @@ jobs:
           python3 scripts/make_terminal.py
       - name: Validate generated XML and README references
         run: python3 scripts/validate.py
+      - name: Verify generated asset matches committed SVG
+        run: git diff --exit-code -- assets/terminal.svg
