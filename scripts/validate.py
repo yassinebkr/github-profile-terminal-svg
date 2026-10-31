@@ -100,7 +100,7 @@ for required in (
     "GITHUB_USERNAME",
     "GENERATOR_REPO",
     "PORTFOLIO_URL",
-    "assets/shellfolio-button.svg",
+    "assets/shellfolio-cta-arrows-v2.svg",
     "assets/source-button.svg",
 ):
     assert required in setup, f"Missing template placeholder or button: {required}"
