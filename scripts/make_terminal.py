@@ -97,6 +97,28 @@ PANELS = {
             ("hint", "Evidence: IMX283 camera + 45 km LoRa field test"),
         ],
     ),
+    "software": (
+        "cat ~/workspace/software/README",
+        [
+            ("header", "/software — systems, interfaces, and automation"),
+            ("ok", "[OK] Python / C / C++"),
+            ("ok", "[OK] Debian Linux / Git"),
+            ("ok", "[OK] TCP / Ethernet / networking"),
+            ("ok", "[OK] Web applications / PWA"),
+            ("hint", "Research interests: AI agents and computer vision"),
+        ],
+    ),
+    "fabrication": (
+        "cat ~/workspace/fabrication/README",
+        [
+            ("header", "/fabrication — mechanical and PCB prototyping"),
+            ("ok", "[OK] Fusion 360 / CAD"),
+            ("ok", "[OK] TTC450 CNC / 1.5 kW spindle"),
+            ("ok", "[OK] Qidi Plus 4 / FDM / Klipper"),
+            ("ok", "[OK] Reflow oven / hot air / soldering"),
+            ("hint", "Workflow: design > manufacture > assemble > validate"),
+        ],
+    ),
     "projects": (
         "ls ~/projects/",
         [
@@ -181,7 +203,7 @@ def text_at(x: float, y: float, value: str, color: str | None = None,
     )
 
 
-def document(height: int, contents: str) -> str:
+def document(height: int, contents: str, *, framed: bool = True) -> str:
     """Wrap terminal drawing elements in a standalone, valid SVG document.
 
     The CSS animation applies only to the blinking cursor. SVG/SMIL typing
@@ -195,9 +217,13 @@ def document(height: int, contents: str) -> str:
         ".cursor{animation:blink 1.1s steps(1) infinite}"
         "@media(prefers-reduced-motion:reduce){.cursor{animation:none}}"
     )
-    background = rectangle(
-        0.5, 0.5, WIDTH - 1, height - 1, COLORS["bg"],
-        f'rx="8" stroke="{COLORS["line"]}"',
+    # The hero has a window frame. Expanding stdout should appear as a
+    # continuation of the shell, not as a second, unrelated floating card.
+    background = (
+        rectangle(
+            0.5, 0.5, WIDTH - 1, height - 1, COLORS["bg"],
+            f'rx="8" stroke="{COLORS["line"]}"',
+        ) if framed else rectangle(0, 0, WIDTH, height, COLORS["bg"])
     )
     return (
         f'<svg xmlns="http://www.w3.org/2000/svg" '
@@ -211,7 +237,7 @@ def document(height: int, contents: str) -> str:
 # --- Terminal window and animated home screen -------------------------------
 
 def render_home() -> str:
-    """Produce the 900 x 496 px XFCE terminal with the Debian-style graphic."""
+    """Produce the XFCE terminal intro; native README commands continue below."""
     svg = rectangle(1, 1, 898, 34, COLORS["bar"], 'rx="8"')
     svg += rectangle(1, 29, 898, 7, COLORS["bar"])
     svg += rectangle(1, 35, 898, 26, COLORS["menu"])
@@ -275,13 +301,10 @@ def render_home() -> str:
         25, 437, "hardware/ embedded/ software/ fabrication/ projects/",
         COLORS["blue"], size=14,
     )
-    svg += text_at(25, 470, "visitor@debian", COLORS["green"])
-    svg += text_at(160, 470, ":~$", COLORS["blue"])
-    svg += text_at(207, 470, "select a command below", COLORS["muted"], size=14)
-
-    # CSS controls the blink. The cursor has no input behavior.
-    svg += rectangle(410, 455, 9, 17, COLORS["green"], 'class="cursor"')
-    return document(496, svg)
+    # GitHub displays native <summary> controls immediately beneath this
+    # image. Do not draw another fake input prompt here: that would duplicate
+    # the real clickable commands and make the UI look disconnected.
+    return document(457, svg)
 
 
 # --- Command and output graphics -------------------------------------------
@@ -300,20 +323,23 @@ def render_command(command: str) -> str:
 
 
 def render_output(name: str, lines: list[str | tuple[str, str]]) -> str:
-    """Render a fixed-width shell stdout panel for a documented project."""
-    height = 100 + len(lines) * 25
-    svg = rectangle(14, 16, 3, height - 52, COLORS["green"])
-    svg += text_at(30, 29, f"stdout  /  {name}", COLORS["muted"], size=12)
+    """Draw stdout without a separate card border or an artificial exit log.
+
+    A real shell does not create a new terminal window for every command.
+    The README's native disclosure control supplies the command prompt;
+    this SVG therefore shows only the resulting output, in the same colors
+    and text grid as the introduction.
+    """
+    height = 38 + len(lines) * 25
+    svg = ""
 
     for index, entry in enumerate(lines):
         # A bare string denotes a header; tuples name a semantic color.
         kind, line = entry if isinstance(entry, tuple) else ("header", entry)
-        svg += text_at(30, 65 + index * 25, line,
+        svg += text_at(30, 31 + index * 25, line,
                        COLORS.get(kind, COLORS["fg"]), size=14)
 
-    svg += text_at(30, height - 17, "process exited with code 0",
-                   COLORS["muted"], size=11)
-    return document(height, svg)
+    return document(height, svg, framed=False)
 
 
 def main() -> None:
