@@ -32,6 +32,7 @@ Replace these placeholders **everywhere** in the snippet:
 
 | Placeholder | Replace with |
 | --- | --- |
+| `YOUR_SHORT_BIO` | A brief description of your work and interests |
 | `GITHUB_USERNAME` | Your GitHub account username |
 | `GENERATOR_REPO` | The name of your public SVG generator repository |
 | `PORTFOLIO_URL` | The full URL of your portfolio or other destination, including `https://` |
@@ -40,8 +41,7 @@ Paste the updated snippet into the profile repository's `README.md`:
 
 ```html
 <p align="center">
-  I build electronics and the software around them — from embedded Linux
-  and wireless systems to tools and experimental interfaces.
+  YOUR_SHORT_BIO
 </p>
 
 <p align="center">
