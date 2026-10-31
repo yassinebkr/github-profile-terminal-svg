@@ -48,7 +48,7 @@ Paste the updated snippet into the profile repository's `README.md`:
 <p align="center">
   <a href="PORTFOLIO_URL"><img
     src="https://raw.githubusercontent.com/GITHUB_USERNAME/GENERATOR_REPO/main/assets/shellfolio-button.svg"
-    width="296" height="62" alt="Open the interactive portfolio" /></a>
+    width="296" height="62" alt="Click the terminal above or this button to open the interactive portfolio" /></a>
   <a href="https://github.com/GITHUB_USERNAME/GENERATOR_REPO"><img
     src="https://raw.githubusercontent.com/GITHUB_USERNAME/GENERATOR_REPO/main/assets/source-button.svg"
     width="296" height="62" alt="View SVG generator source and build notes" /></a>
@@ -64,8 +64,9 @@ For a short personal introduction, use **GitHub → Edit profile → Bio**.
 The profile README template deliberately starts with the animated terminal.
 
 The SVG is an animated image and **clicking it opens your portfolio**. The
-first compact button opens the same destination; the second opens the
-generator's source. Both buttons have a 296 × 62 px viewport and explicit
+first compact button explicitly tells visitors to click the terminal above,
+but it also opens the same destination when clicked. The second button opens
+the generator's source. Both buttons have a 296 × 62 px viewport and explicit
 HTML dimensions. The profile also invites visitors to explore other
 repositories.
 
