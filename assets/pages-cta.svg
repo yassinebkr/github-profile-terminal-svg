@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="76" viewBox="0 0 920 76" role="img" aria-labelledby="cta-title cta-desc">
+<title id="cta-title">Open the interactive engineering terminal</title>
+<desc id="cta-desc">Launch a navigable Debian XFCE-style terminal experience.</desc>
+<rect x="1" y="1" width="918" height="74" rx="5" fill="#0c1014" stroke="#46505a"/>
+<path d="M13 12h3v52h-3z" fill="#69d77d"/>
+<text x="32" y="34" font-family="DejaVu Sans Mono,Liberation Mono,monospace" font-size="16" fill="#83ec96">yassine@debian<tspan fill="#91b9fb">:~</tspan><tspan fill="#e0e3e6">$ </tspan><tspan fill="#e0e3e6">./launch-interactive.sh</tspan></text>
+<text x="33" y="56" font-family="DejaVu Sans Mono,Liberation Mono,monospace" font-size="11" fill="#99a8b5">EXPLORE PROJECTS, CODE &amp; SKILLS — OPEN INTERACTIVE CONSOLE</text>
+<path d="M855 30h26m-11-11 11 11-11 11" stroke="#9be9a7" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
