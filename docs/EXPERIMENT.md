@@ -1,23 +1,45 @@
-# Engineering OS — XFCE visual revision
+# XFCE profile terminal — SVG design notes
 
-The terminal uses a single standalone SVG image. Its XFCE-style title bar, GTK menu and near-black shell colors are based on the user's reference screenshot.
+## Presentation
 
-The Debian vector geometry is embedded directly from the local vector source. The generator draws the long-format Unix listing with realistic permissions, owners, sizes and sample timestamps.
+The README displays one standalone SVG with a Debian-inspired XFCE terminal
+window, vector Debian swirl and an illustrated long-format Unix listing.
+The window chrome, menu strip, text alignment and palette use the user's
+XFCE Terminal screenshot as their visual reference.
 
-## Rebuild
+## Generator
 
-    python3 scripts/make_terminal.py
-    python3 scripts/validate.py
+```bash
+python3 scripts/make_terminal.py
+python3 scripts/validate.py
+```
 
-The template lives at assets/terminal-template.svg, the Debian artwork at assets/debian-open-use.svg, and the resulting file at assets/terminal.svg.
+- `assets/terminal-template.svg`: geometry, CSS, animation and window chrome
+- `assets/debian-open-use.svg`: source vector for the Debian swirl
+- `assets/terminal.svg`: deterministic generated SVG
+- `scripts/make_terminal.py`: editable profile fields and XML composition
+- `scripts/validate.py`: structural and reproducibility checks
 
-## Review
+The username `yassine@debian`, animated `neofetch` command, vector terminal
+glyph and shell cursor are kept consistent across the generated scene.
+The typing clip covers the complete eight-character command.
 
-Review the generated asset in the GitHub README; compare its window controls, monochrome shell text, Debian vector, spacing and alignment to XFCE Terminal. The final image can later link to a full GitHub Pages interactive terminal.
+## GitHub profile navigation
 
-## XFCE presentation refinements
+The README uses two independent SVG-linked rows:
 
-- Profile terminal identity: `yassine@debian` throughout the title, commands and listing.
-- Window icon: vector terminal glyph with an aligned prompt chevron and cursor.
-- The eight-character `neofetch` animation ends with a sufficiently wide clipping mask.
-- Prompt placement derives from the full username/hostname length for consistent terminal alignment.
+1. **Open ShellFolio** — the separate public interactive portfolio at
+   https://yassinebkr.github.io/ShellFolio/
+2. **How I made it** — the Python source and documentation for this generated
+   profile asset, in the current repository.
+
+GitHub Markdown offers a constrained interaction surface. The richer
+browser terminal, its JavaScript interpreter, the replay animation and its
+tests are maintained exclusively in https://github.com/yassinebkr/ShellFolio.
+
+## Acknowledgements
+
+The first prototype was inspired by
+[AienTech/aientech](https://github.com/AienTech/aientech).
+This generator and its window geometry were independently implemented.
+Refer to [DEBIAN-LOGO.md](DEBIAN-LOGO.md) for logo provenance.

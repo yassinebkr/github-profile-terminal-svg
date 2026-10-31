@@ -1,10 +1,19 @@
-name: Validate XFCE terminal
+name: Validate animated profile SVG
 
 on:
   push:
-    branches: [experiment/interactive-terminal]
+    branches: [main]
+    paths:
+      - 'README.md'
+      - 'assets/**'
+      - 'scripts/**'
+      - '.github/workflows/validate.yml'
   pull_request:
-    paths: [README.md, 'assets/**', 'scripts/**', '.github/workflows/validate.yml']
+    paths:
+      - 'README.md'
+      - 'assets/**'
+      - 'scripts/**'
+      - '.github/workflows/validate.yml'
 
 permissions:
   contents: read
@@ -14,10 +23,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Regenerate and validate vector asset
+      - name: Generate and validate profile art
         run: |
           python3 -m py_compile scripts/make_terminal.py scripts/validate.py
           python3 scripts/make_terminal.py
           python3 scripts/validate.py
-      - name: Verify reproducible output
+      - name: Confirm reproducible output
         run: git diff --exit-code -- assets/terminal.svg
