@@ -14,6 +14,7 @@ Generate and validate the SVG before embedding it:
 
 ```bash
 python3 scripts/make_terminal.py
+python3 scripts/make_cta.py
 python3 scripts/validate.py
 python3 -m unittest discover -s tests -v
 ```
@@ -47,7 +48,7 @@ Paste the updated snippet into the profile repository's `README.md`:
 
 <p align="center">
   <a href="PORTFOLIO_URL"><img
-    src="https://raw.githubusercontent.com/GITHUB_USERNAME/GENERATOR_REPO/main/assets/shellfolio-cta-arrows-v2.svg"
+    src="https://raw.githubusercontent.com/GITHUB_USERNAME/GENERATOR_REPO/main/assets/shellfolio-cta-arrows-v3.svg"
     width="296" height="62" alt="Click the terminal above or this button to open the interactive portfolio" /></a>
   <a href="https://github.com/GITHUB_USERNAME/GENERATOR_REPO"><img
     src="https://raw.githubusercontent.com/GITHUB_USERNAME/GENERATOR_REPO/main/assets/source-button.svg"
@@ -64,10 +65,11 @@ For a short personal introduction, use **GitHub → Edit profile → Bio**.
 The profile README template deliberately starts with the animated terminal.
 
 The SVG is an animated image and **clicking it opens your portfolio**. The
-first compact button has a prominent upward arrow pointing to the SVG and a
-small right arrow following "OR CLICK HERE TO OPEN". Clicking that button also
-opens the same portfolio. Its distinct asset filename avoids GitHub caching
-the older arrow arrangement. The second button opens the generator's source.
+first compact button has a green upward arrow matching the large pink arrow
+on the second button, and a smaller white right arrow following "OR CLICK HERE
+TO OPEN". Clicking the first button also opens the portfolio. Its distinct
+asset filename avoids GitHub caching the older arrow arrangement. The second
+button opens the generator's source.
 Both buttons have a 296 × 62 px viewport and explicit HTML dimensions.
 The profile also invites visitors to explore other repositories.
 
@@ -78,6 +80,10 @@ The profile also invites visitors to explore other repositories.
 - Open the two links to verify their destinations.
 - Check the mobile layout and ensure the animation ends without erasing text.
 
-To change the terminal content, edit `scripts/make_terminal.py`, regenerate
-`assets/terminal.svg`, and commit **both the source and the output** in the
-generator repository. GitHub may cache the rendered image briefly.
+To change terminal content, edit `scripts/make_terminal.py` and regenerate
+`assets/terminal.svg`. To customize either CTA arrow, edit `MAIN_ARROW` or
+`INLINE_ARROW` in `scripts/make_cta.py`, then run that script. Configure only
+direction (`up`, `right`, `down`, `left`), length in pixels, stroke width
+and six-digit hex color. Commit the generated SVG with its source. GitHub may
+cache a previously rendered image; publish under a fresh filename when a
+visible profile change needs to bypass that cache.
