@@ -20,6 +20,7 @@ for a working terminal.
 | --- | --- |
 | Profile fields and directory names | `scripts/make_terminal.py` |
 | Command timing | `scripts/timing.py` |
+| CTA arrow direction, size and color | `scripts/make_cta.py` |
 | Terminal geometry, colors and fonts | `assets/terminal-template.svg` |
 | Link to your own portfolio | `README.md` |
 
@@ -27,12 +28,15 @@ for a working terminal.
 
 ```bash
 python3 scripts/make_terminal.py
+python3 scripts/make_cta.py
 python3 scripts/validate.py
 python3 -m unittest discover -s tests -v
 ```
 
-The generator uses Python's standard library. GitHub Actions checks that
-`assets/terminal.svg` matches the source files.
+Both SVG generators use only Python's standard library. GitHub Actions checks
+that `assets/terminal.svg` and `assets/shellfolio-cta-arrows-v3.svg` match
+their sources. CTA customization is deliberately isolated from the terminal
+animation and limited to arrow direction, length, stroke and color.
 
 [Profile setup guide](docs/PROFILE-SETUP.md) ·
 [Generator details](docs/README.md) ·
