@@ -4,22 +4,19 @@
 This self-contained generator was written for the yassinebkr/test experiment.
 AienTech's SVG terminal concept inspired this independent implementation.
 
-What this program does
-----------------------
-* Draw an XFCE-inspired Linux terminal entirely with SVG elements.
-* Reproduce a Debian-themed "neofetch" view using editable profile data.
-* Use SMIL to reveal a typed command and CSS to blink the shell cursor.
-* Produce SVG representations of system directories and project case studies.
-* Keep every generated image deterministic and free of external dependencies.
+Generator responsibilities
+--------------------------
+* Draw a Debian XFCE terminal entirely from editable vector elements.
+* Present the engineering profile through a neofetch-style summary.
+* Animate command entry using SVG SMIL and cursor blinking using SVG CSS.
+* Render realistic long-format Unix directory entries on a monospace grid.
+* Produce one deterministic, self-contained SVG with the Python standard library.
 
-Presentation model
-------------------
-* One SVG image contains the entire terminal session and Unix listing.
-* A uniform monospace grid preserves continuous alignment and spacing.
-* SMIL and CSS provide the command reveal and shell cursor animations.
-* The README embeds the generated SVG as one visual component.
-
-Directory ownership and timestamps represent a simulated profile workspace.
+GitHub presentation
+-------------------
+The README displays one image containing the complete terminal interface.
+The image presents the portfolio as a visual Linux session.
+Each project can subsequently receive a dedicated technical demonstration.
 
 Usage (from the repository root):
     python3 scripts/make_terminal.py
@@ -59,103 +56,7 @@ SYSTEM_LINES = [
     ("Projects:  CinemaPi5 / LoRa 45km", "fg"),
 ]
 
-# Each panel is (command, lines). Each line may be plain text or a pair
-# (semantic_kind, line_text). The semantic kind chooses a terminal color.
-PANELS = {
-    "skills": (
-        "ls -la ~/workspace/",
-        [
-            "total 5   drwxr-xr-x   engineering environments",
-            ("dir", " hardware/      KiCad / SPICE / electronics"),
-            ("dir", " embedded/      RP2040 / sensors / radio"),
-            ("dir", " software/      Python / C / C++ / Linux"),
-            ("dir", " fabrication/   CNC / Fusion 360 / FDM"),
-            ("dir", " projects/      validated case studies"),
-            ("hint", "Select a command below to inspect a subsystem."),
-        ],
-    ),
-    "hardware": (
-        "cat ~/workspace/hardware/README",
-        [
-            ("header", "/hardware — circuit design and integration"),
-            ("ok", "[OK] KiCad schematic and PCB design"),
-            ("ok", "[OK] Circuit simulation / SPICE"),
-            ("ok", "[OK] I2C, SPI, UART, RS-485"),
-            ("ok", "[OK] Reflow, soldering and PCB bring-up"),
-            ("hint", "Workflow: design > assemble > validate"),
-        ],
-    ),
-    "embedded": (
-        "cat ~/workspace/embedded/README",
-        [
-            ("header", "/embedded — embedded hardware and software"),
-            ("ok", "[OK] Raspberry Pi 5 / RP2040"),
-            ("ok", "[OK] Embedded Linux / camera sensor drivers"),
-            ("ok", "[OK] IMU / GNSS / LoRa telemetry"),
-            ("ok", "[OK] TCP / Ethernet / UART"),
-            ("hint", "Evidence: IMX283 camera + 45 km LoRa field test"),
-        ],
-    ),
-    "software": (
-        "cat ~/workspace/software/README",
-        [
-            ("header", "/software — systems, interfaces, and automation"),
-            ("ok", "[OK] Python / C / C++"),
-            ("ok", "[OK] Debian Linux / Git"),
-            ("ok", "[OK] TCP / Ethernet / networking"),
-            ("ok", "[OK] Web applications / PWA"),
-            ("hint", "Research interests: AI agents and computer vision"),
-        ],
-    ),
-    "fabrication": (
-        "cat ~/workspace/fabrication/README",
-        [
-            ("header", "/fabrication — mechanical and PCB prototyping"),
-            ("ok", "[OK] Fusion 360 / CAD"),
-            ("ok", "[OK] TTC450 CNC / 1.5 kW spindle"),
-            ("ok", "[OK] Qidi Plus 4 / FDM / Klipper"),
-            ("ok", "[OK] Reflow oven / hot air / soldering"),
-            ("hint", "Workflow: design > manufacture > assemble > validate"),
-        ],
-    ),
-    "projects": (
-        "ls ~/projects/",
-        [
-            "PROJECT INDEX",
-            ("dir", "01  cinemapi5/   DIY cinema camera engineering"),
-            ("dir", "02  lora/        Long-range radio telemetry"),
-            ("hint", "Select a project below for implementation details."),
-        ],
-    ),
-    "camera": (
-        "inspect ~/projects/cinemapi5",
-        [
-            ("header", "CINEMAPI5 / R&D PROTOTYPE"),
-            ("ok", "Platform       Raspberry Pi 5 + NVMe"),
-            ("ok", "Sensor         Sony IMX283"),
-            ("ok", "Imaging        RAW / Libcamera / PISP"),
-            ("ok", "UI             Responsive web / PWA"),
-            ("ok", "Integration    LUT / IMU / HUD"),
-            ("warn", "Target         4K 12-bit 30fps (performance goal)"),
-            ("hint", "Code: github.com/yassinebkr/cinematepi5"),
-        ],
-    ),
-    "lora": (
-        "inspect ~/projects/lora",
-        [
-            ("header", "LONG-RANGE TELEMETRY / FIELD-VALIDATED"),
-            ("ok", "Platform       RP2040 (TX and RX)"),
-            ("ok", "Radio          RFM95 / 868 MHz"),
-            ("ok", "Sensors        IMU + GNSS"),
-            ("ok", "Antenna        Directional Yagi"),
-            ("cyan", "TX [RP2040] )))) 868 MHz (((( [RP2040] RX"),
-            ("ok", "[PASS] 45 km wireless link validated"),
-            ("hint", "Measured field result: 45 km validated"),
-        ],
-    ),
-}
-
-# These hexadecimal colors match the SVG version already committed to GitHub.
+# Palette shared by the terminal title bar, shell prompts and listing.
 COLORS = {
     "bg": "#0e1116",
     "bar": "#242830",
@@ -205,7 +106,7 @@ def text_at(x: float, y: float, value: str, color: str | None = None,
     )
 
 
-def document(height: int, contents: str, *, framed: bool = True) -> str:
+def document(height: int, contents: str) -> str:
     """Wrap terminal drawing elements in a standalone, valid SVG document.
 
     The CSS animation applies only to the blinking cursor. SVG/SMIL typing
@@ -219,13 +120,10 @@ def document(height: int, contents: str, *, framed: bool = True) -> str:
         ".cursor{animation:blink 1.1s steps(1) infinite}"
         "@media(prefers-reduced-motion:reduce){.cursor{animation:none}}"
     )
-    # The hero has a window frame. Expanding stdout should appear as a
-    # continuation of the shell, preserving a consistent terminal surface.
-    background = (
-        rectangle(
-            0.5, 0.5, WIDTH - 1, height - 1, COLORS["bg"],
-            f'rx="8" stroke="{COLORS["line"]}"',
-        ) if framed else rectangle(0, 0, WIDTH, height, COLORS["bg"])
+    # The single SVG includes a complete terminal window and its content.
+    background = rectangle(
+        0.5, 0.5, WIDTH - 1, height - 1, COLORS["bg"],
+        f'rx="8" stroke="{COLORS["line"]}"',
     )
     return (
         f'<svg xmlns="http://www.w3.org/2000/svg" '
@@ -321,50 +219,11 @@ def render_home() -> str:
     return document(653, svg)
 
 
-# --- Command and output graphics -------------------------------------------
-# The command images are retained for experiments and comparison, even though
-# README.md now uses plain <summary><code>...</code></summary> so that clicking
-# the text actually expands the section instead of opening an SVG file.
-
-
-def render_command(command: str) -> str:
-    """Render a shell prompt strip for visual and layout comparisons."""
-    svg = text_at(22, 34, "visitor@debian", COLORS["green"], weight=700)
-    svg += text_at(158, 34, ":~$", COLORS["blue"])
-    svg += text_at(209, 34, command)
-    svg += text_at(785, 34, "[ ENTER ]", COLORS["green"], size=12, weight=700)
-    return document(56, svg)
-
-
-def render_output(name: str, lines: list[str | tuple[str, str]]) -> str:
-    """Draw stdout as a continuous portion of the same terminal.
-
-    A native README disclosure control supplies the command prompt.
-    The SVG shows the resulting output using the introduction's typography
-    and colors for consistent terminal presentation.
-    """
-    height = 38 + len(lines) * 25
-    svg = ""
-
-    for index, entry in enumerate(lines):
-        # A bare string denotes a header; tuples name a semantic color.
-        kind, line = entry if isinstance(entry, tuple) else ("header", entry)
-        svg += text_at(30, 31 + index * 25, line,
-                       COLORS.get(kind, COLORS["fg"]), size=14)
-
-    return document(height, svg, framed=False)
-
-
-
-
 def main() -> None:
     """Build, XML-validate and save all files in a deterministic order."""
     ASSETS.mkdir(parents=True, exist_ok=True)
 
     images: dict[str, str] = {"terminal.svg": render_home()}
-    for name, (command, lines) in PANELS.items():
-        images[f"cmd-{name}.svg"] = render_command(command)
-        images[f"out-{name}.svg"] = render_output(name, lines)
 
     for filename, markup in sorted(images.items()):
         # Validate before overwriting the previous good asset.
@@ -373,7 +232,7 @@ def main() -> None:
         destination.write_text(markup, encoding="utf-8")
         print(f"generated: {destination.relative_to(ROOT)}")
 
-    print(f"Done: {len(images)} SVG images generated.")
+    print(f"Done: {len(images)} SVG image generated.")
 
 
 if __name__ == "__main__":
