@@ -1,9 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="920" height="64" viewBox="0 0 920 64" role="img" aria-labelledby="title description">
-<title id="title">How I made it — view the animated GitHub profile SVG source</title>
-<desc id="description">Open the Python SVG generator and documentation for this GitHub profile terminal.</desc>
-<rect x="1" y="1" width="918" height="62" rx="4" fill="#0e1116" stroke="#3d4650"/>
-<path d="M13 12h3v40h-3z" fill="#d70751"/>
-<text x="32" y="27" font-family="DejaVu Sans Mono,Liberation Mono,monospace" font-size="15" font-weight="700" fill="#e5e7ea">How I made it</text>
-<text x="32" y="46" font-family="DejaVu Sans Mono,Liberation Mono,monospace" font-size="11" fill="#9ba9b7">SOURCE CODE  /  PYTHON SVG GENERATOR  /  BUILD NOTES</text>
-<path d="M855 28h25m-10-10 10 10-10 10" fill="none" stroke="#d70751" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="74" viewBox="0 0 920 74" role="img" aria-labelledby="title description">
+<title id="title">How I made it — source code for the Python SVG generator</title>
+<desc id="description">SOURCE CODE  /  PYTHON SVG GENERATOR  /  BUILD NOTES</desc>
+<!-- Both profile links share exactly the same baseline, border and arrow geometry. -->
+<rect x="1" y="1" width="918" height="72" rx="5" fill="#0c1014" stroke="#46505a"/>
+<rect x="13" y="12" width="3" height="50" fill="#d70751"/>
+<text x="32" y="31" font-family="DejaVu Sans Mono,Liberation Mono,monospace" font-size="16" font-weight="700" fill="#e5e7ea">How I made it</text>
+<text x="32" y="53" font-family="DejaVu Sans Mono,Liberation Mono,monospace" font-size="11" fill="#9ba9b7">SOURCE CODE  /  PYTHON SVG GENERATOR  /  BUILD NOTES</text>
+<path d="M856 37h26m-11-11 11 11-11 11" stroke="#d70751" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

@@ -35,4 +35,10 @@ assert re.search(r'(?:href|src)=["\']https?://', svg) is None, "External resourc
 readme = (ROOT / "README.md").read_text(encoding="utf-8")
 for relative in re.findall(r'src="([^"]+)"', readme):
     assert (ROOT / relative).exists(), f"Missing README asset: {relative}"
-print("validated vector logo, GTK chrome, Unix listing, animations, and README")
+# Related README link graphics must share exact dimensions and geometry.
+for asset in ("pages-cta.svg", "how-made-it.svg"):
+    graphic = ET.parse(ROOT / "assets" / asset).getroot()
+    assert graphic.attrib.get("viewBox") == "0 0 920 74", f"Misaligned CTA: {asset}"
+    assert graphic.attrib.get("height") == "74", f"Inconsistent height: {asset}"
+assert "ShellFolio/?run=launch" in readme, "The public site must run its virtual launcher"
+print("validated vector logo, GTK chrome, Unix listing, aligned links, and README")

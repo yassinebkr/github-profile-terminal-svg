@@ -32,7 +32,7 @@ standalone asset as an image inside the README.
 
 [ShellFolio](https://github.com/yassinebkr/ShellFolio) is the separately
 maintained, [public interactive terminal website](https://yassinebkr.github.io/ShellFolio/).
-Its browser application, JavaScript engine, tests, web demo SVG and web
+The primary SVG link opens ShellFolio with `?run=launch` to execute the read-only\nvirtual command `./launch-interactive.sh` on arrival. Both links use identical\n920 × 74 SVG dimensions and layout grids.\n\nIts browser application, JavaScript engine, tests, web demo SVG and web
 documentation all live in its **own public repository**. The profile SVG
 generator and its documentation belong here.
 
