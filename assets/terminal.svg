@@ -58,7 +58,7 @@
   <text x="335" y="274" class="body" xml:space="preserve"><tspan class="key">Terminal:</tspan><tspan dx="16.90">xfce4-terminal</tspan></text>
   <text x="335" y="297" class="body" xml:space="preserve"><tspan class="key">Focus:</tspan><tspan dx="42.25">Electronics / Embedded Systems</tspan></text>
   <text x="335" y="320" class="body" xml:space="preserve"><tspan class="key">Toolchain:</tspan><tspan dx="8.45">KiCad / Python / C / C++</tspan></text>
-  <text x="335" y="343" class="body" xml:space="preserve"><tspan class="key">Projects:</tspan><tspan dx="16.90">CinemaPi5 / LoRa telemetry</tspan></text>
+  <text x="335" y="343" class="body" xml:space="preserve"><tspan class="key">Projects:</tspan><tspan dx="16.90">CinemaPi5 / LoRa / BigBrain</tspan></text>
 </g>
 <g>
 <rect x="335" y="382" width="24" height="12" fill="#101010"/>
